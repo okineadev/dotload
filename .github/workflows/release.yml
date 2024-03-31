@@ -41,12 +41,12 @@ jobs:
         changes="You can view the changes at this link - https://github.com/okineadev/dotload/releases/tag/$tag"
 
         key="-k2783259A7535F745"
-        gpg_cmd="-p\"gpg --batch --passphrase ${{ secrets.PPA_GPG_KEY_PASSPHRASE }} --pinentry-mode loopback\""
+        # gpg_cmd="-p\"gpg --batch --passphrase ${{ secrets.PPA_GPG_KEY_PASSPHRASE }} --pinentry-mode loopback\""
 
         dch --create --distribution jammy --package dotload --newversion $release_version $changes
 
-        debuild --no-lintian -i $gpg_cmd $key
-        debuild --no-lintian -S -sa $gpg_cmd $key
+        debuild --no-lintian -i -p"gpg --batch --passphrase ${{ secrets.PPA_GPG_KEY_PASSPHRASE }} --pinentry-mode loopback" $key
+        debuild --no-lintian -S -sa -p"gpg --batch --passphrase ${{ secrets.PPA_GPG_KEY_PASSPHRASE }} --pinentry-mode loopback" $key
 
     - name: 📦 Upload package to Ubuntu PPA
       run: |
