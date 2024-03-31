@@ -1,0 +1,13 @@
+*.deb
+*.build
+*.buildinfo
+*.changes
+*.dsc
+*.tar.gz
+*.tar.xz
+
+dotload/debian/dotload
+dotload/debian/.debhelper
+dotload/debian/debhelper-build-stamp
+dotload/debian/files
+dotload/debian/changelog

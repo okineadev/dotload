@@ -1,0 +1,6 @@
+#!/bin/sh
+set -e
+
+echo "Thanks for installing! ♪(^∇^*)"
+
+exit 0

@@ -1,0 +1,7 @@
+Upstream-Name: dotload
+Source: https://github.com/okineadev/dotload/
+Build-Depends: debhelper (>= 12)
+
+Files: *
+Copyright: Okinea Dev (2024)
+License: MIT

@@ -1,0 +1,335 @@
+#!/usr/bin/env bash
+
+# dotload - A simple script to download dotfiles from a git repository
+
+DOTFILES_DIR="$HOME/.dotload"
+
+hyperlink() {
+    echo -e "\e]8;;$1\e\\$2\e]8;;\e\\"
+}
+
+# Prints the header for the dotload script
+echo -e "\e[1m● dotload ($(hyperlink "https://github.com/okineadev/dotload/" "GitHub"))\e[0m"
+echo ""
+
+# Function to check if the entered username is valid
+check_username() {
+    local username=$1
+
+    if [[ "$username" =~ ^[a-zA-Z0-9._-]*$ ]]; then
+        if [[ ${#username} -gt 39 ]]; then
+            echo -e "  \e[1mEntered username:\e[0m \"@$username\""
+            echo "Username should not exceed 39 characters."
+            exit 1
+        elif [ -z "$username" ]; then
+            echo "Username cannot be empty"
+            exit 1
+        fi
+    else
+        echo -e "\e[1;31mERROR!\e[0m"
+        echo ""
+        echo -e "  \e[1mEntered username:\e[0m \"@$username\""
+
+        # Check for invalid characters in the username
+        if [[ "$username" =~ [[:space:]] ]]; then
+            echo -e "  Username contains spaces which are \e[1;4;31mnot allowed\e[0m."
+        elif [[ "$username" =~ [[:punct:]] ]]; then
+            echo -e "  Username contains punctuation characters or emoji which are \e[1;4;31mnot allowed\e[0m."
+        elif [[ "$username" =~ [[:cntrl:]] ]]; then
+            echo -e "  Username contains control characters which are \e[1;4;31mnot allowed.\e[0m"
+        elif [[ "$username" =~ [[:print:]] && ! "$username" =~ [[:graph:]] ]]; then
+            echo -e "  Username contains non-printable characters which are \e[1;4;31mnot allowed.\e[0m"
+        else
+            echo -e "  \e[1mInvalid username.\e[0m"
+        fi
+
+        echo ""
+
+        exit 1
+    fi
+}
+
+# Function to check if the entered branch name is valid
+check_branch_name() {
+    local branch_name=$1
+    if [[ "$branch_name" =~ ^[a-zA-Z0-9._-]*$ ]]; then
+        if [[ ${#branch_name} -gt 40 ]]; then
+            echo -e "\e[1;31mERROR!\e[0m"
+            echo ""
+            echo -e "  \e[1mEntered branch name:\e[0m \"$branch_name\""
+            echo -e "  Branch name should not exceed \e[1m40\e[0m characters."
+            echo ""
+            exit 1
+
+        elif [ -z "$branch_name" ]; then
+            echo -e "\e[1;31mERROR!\e[0m"
+            echo ""
+            echo "  Branch name cannot be empty"
+            echo ""
+            exit 1
+        fi
+    else
+        echo -e "\e[1;31mERROR!\e[0m"
+        echo ""
+        echo -e "  \e[1mEntered branch name:\e[0m \"$branch_name\""
+
+        # Check for invalid characters in the branch name
+        if [[ "$branch_name" =~ [[:space:]] ]]; then
+            echo -e "  Branch name contains spaces which are \e[1;4;31mnot allowed\e[0m."
+        elif [[ "$branch_name" =~ [[:punct:]] ]]; then
+            echo -e "  Branch name contains punctuation characters or emoji which are \e[1;4;31mnot allowed\e[0m."
+        elif [[ "$branch_name" =~ [[:cntrl:]] ]]; then
+            echo -e "  Branch name contains control characters which are \e[1;4;31mnot allowed.\e[0m"
+        elif [[ "$branch_name" =~ [[:print:]] && ! "$branch_name" =~ [[:graph:]] ]]; then
+            echo -e "  Branch name contains non-printable characters which are \e[1;4;31mnot allowed.\e[0m"
+        else
+            echo -e "  \e[1mInvalid branch name.\e[0m"
+        fi
+
+        echo ""
+
+        exit 1
+    fi
+}
+
+# Function to check if the repository exists
+check_repo_exists() {
+    if ! git ls-remote "$1" HEAD >/dev/null 2>&1; then
+        echo -e "  Repository does not exist: \e[4m$repo_url\e[0m"
+        echo ""
+        exit 1
+    fi
+}
+
+# Function to read a value from the dotload.conf file
+read_declaration() {
+    local declaration=$DOTFILES_DIR/dotload.conf
+    local key=$1
+    local value=$(sed -n "s/.*$key=\([^ ]*\).*/\1/p" <"$declaration")
+    echo "$value"
+}
+
+# Function to print informational messages
+print_info() {
+    echo -e "\e[1;32mⓘ  INFO:\e[0m $1"
+}
+
+# Function to print warning messages
+warning() {
+    echo -e "\e[33;5;7;1m⚠  WARNING:\e[0m $1"
+}
+
+# Function to print error messages
+error() {
+    echo -e "\e[1;31mERROR!\e[0m"
+}
+
+# Function to download and install dotfiles from a git repository
+dotload() {
+    local username=${1##*@}
+    local branch=""
+
+    # Check if a branch is specified
+    if [ -n "$2" ]; then
+        if [[ "$2" == "--branch" || "$2" == "-b" ]]; then
+            local specified_branch="$3"
+        elif [[ -z "$3" && -n "$2" ]]; then
+            local specified_branch="$2"
+        fi
+
+        # Validate the specified branch
+        if [[ -n "$specified_branch" || -z "$specified_branch" ]]; then
+            check_branch_name "$specified_branch"
+            branch="--branch=$specified_branch"
+        fi
+    fi
+
+    # Validate the username
+    check_username "$username"
+
+    local repo_url="https://github.com/$username/dotfiles.git"
+
+    # Check if dotfiles directory already exists and is up to date
+    if [[ -d "$DOTFILES_DIR" && "$(git -C "$DOTFILES_DIR" remote get-url origin)" == "$repo_url" && -z $branch ]]; then
+        warning "dotfiles for \e[1m@$username\e[0m already exists."
+        local current_dir=$(pwd)
+        cd "$DOTFILES_DIR"
+
+        local branch=$(git rev-parse --abbrev-ref HEAD)
+        local hash=$(git rev-parse --short=8 HEAD)
+
+        echo -e "⊦ \e[1m@$username/dotfiles\e[0m"
+        echo -e "⊦ Branch: $branch"
+        echo -e "╰ Commit hash: $hash\n"
+
+        unset hash
+        unset branch
+
+        cd "$current_dir"
+        unset current_dir
+    else
+        # Check if the repository exists
+        check_repo_exists "$repo_url"
+
+        if [ -d "$DOTFILES_DIR" ]; then
+            echo -e "Replacing dotfiles with user files \e[1m@$username\e[0m."
+            rm -rf "$DOTFILES_DIR"
+        else
+            echo -e "Cloning \e[1m@$username\e[0m dotfiles to $DOTFILES_DIR"
+        fi
+
+        echo -e "⊦ \e[1m@$username/dotfiles\e[0m"
+        if [ ! -z "$specified_branch" ]; then
+            echo -e "⊦ Branch: $specified_branch"
+        fi
+
+        local hash=$(git ls-remote --heads "$repo_url" | awk '{print $1}' | cut -c1-8)
+        echo -e "╰ Commit hash: $hash\n"
+        unset hash
+
+        git clone "$repo_url" "$DOTFILES_DIR" --quiet --depth=1 $branch >/dev/null 2>&1
+    fi
+
+    local custom_install_script
+
+    custom_install_script=$(ls "$DOTFILES_DIR" |
+        grep -E '^(((script\/)?(bootstrap|setup)|install)(\.sh|))$' |
+        head -n 1)
+
+    if [ -f "$DOTFILES_DIR/dotload.conf" ]; then
+        if [ ! -z "$(read_declaration "installation_script")" ]; then
+            # override automatically finded file
+            custom_install_script=$(read_declaration "installation_script")
+        fi
+
+        local script_is_optional=""
+        if [[ "$(read_declaration "script_is_optional")" == "true" ]]; then
+            script_is_optional=" (optional)"
+        fi
+    fi
+
+    # Run the custom install script if available
+    if [ -n "$custom_install_script" ]; then
+        print_info "Custom install script available.\a"
+        local attempts=0
+        while true; do
+            if ((attempts == 4)); then
+                echo "Too many invalid responses. Exiting program."
+                echo ""
+                exit 1
+            fi
+
+            printf "↪  Do you want to execute the install script?%s \e[1m(Y/n)\e[0m: " "$script_is_optional"
+            read -r response
+            if echo "$response" | grep -Eiq "^(y|yes)$"; then
+                echo -e "Running install script ...\n"
+                local current_dir=$(pwd)
+                cd "$DOTFILES_DIR"
+
+                bash "$custom_install_script"
+
+                cd "$current_dir"
+                unset current_dir
+
+                echo ""
+                echo -e "\e[1;32mDone!\e[0m"
+                echo ""
+                exit 0
+
+            elif echo "$response" | grep -Eiq "^(n|no)$"; then
+                echo "Canceled running of install script."
+
+                if [ -n "$script_is_optional" ]; then
+                    break
+                else
+                    echo ""
+                    exit 0
+                fi
+
+            else
+                if [ "$attempts" -lt 3 ]; then
+                    echo -e "\n\e[1;31mInvalid response\e[0m. Please enter '\e[1my\e[0m' or '\e[1mn\e[0m'."
+                    sleep "1"
+                fi
+                ((attempts++))
+            fi
+        done
+        unset attempts
+    fi
+
+    # Symlink new dotfiles
+    local current_dir=$(pwd)
+    cd "$DOTFILES_DIR"
+
+    echo ""
+    echo -e "[\e[1mSymlinking dotfiles to home directory\e[0m]\n"
+    for file in $(git ls-files "$DOTFILES_DIR" | grep -E '^\.'); do
+        local dir=$(dirname "$HOME/$file")
+
+        if [ ! -d "$dir" ]; then
+            mkdir -p "$dir"
+        fi
+
+        printf "• Symlinking \e[1m%s\e[0m ..." "$file"
+        local output="$(ln -sf "$file" "$HOME/$file")"
+        if [[ $output -eq 0 ]]; then
+            tput cub 3
+            printf "\e[1;32m✓\e[0m  \n"
+        else
+            tput cub 3
+            printf "\e[1;31m✕\e[0m  \n"
+            echo -e "  \e[1;31mError\e[0m: $output"
+        fi
+
+        unset output
+    done
+
+    cd "$current_dir"
+    unset current_dir
+
+    echo ""
+    echo -e "\e[1;32mDone!\e[0m"
+    echo ""
+}
+
+# Function to print the usage information for the dotload script
+print_usage() {
+    echo "Usage: dotload [@username] [branch]"
+    echo ""
+    echo "Options:"
+    echo "  @username   The username of the GitHub user whose dotfiles you want to clone."
+    echo ""
+    echo "Examples:"
+    echo "  dotload @username"
+    echo "  dotload @username dev-branch"
+    echo ""
+}
+
+# Function to print the help information for the dotload script
+print_dotload_help() {
+    echo "dotload - A simple script to download dotfiles from a git repository"
+    echo ""
+    echo "Usage:"
+    echo "  dotload @<username> [--branch branch_name | -b branch_name]"
+    echo ""
+    echo "Options:"
+    echo "  @<username>        The username of the GitHub user whose dotfiles you want to clone."
+    echo "  [branch_name]      The branch of the repository you want to clone. If not specified, the default branch is used."
+    echo ""
+    echo "Examples:"
+    echo "  dotload @username"
+    echo "  dotload @username dev-branch"
+    echo ""
+}
+
+# Check if the script is invoked with no arguments or with help option
+if [[ -z $1 || $1 == "--help" || $1 == "help" ]]; then
+    print_usage
+# Check if the script is invoked with a username
+elif [[ $1 == @* ]]; then
+    if [[ $2 == "--help" ]]; then
+        print_dotload_help
+        exit 0
+    fi
+    dotload "$@"
+fi

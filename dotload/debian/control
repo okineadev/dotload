@@ -1,0 +1,14 @@
+Source: dotload
+Section: utils
+Priority: optional
+Maintainer: Okinea Dev <81070564+okineadev@users.noreply.github.com>
+Build-Depends: debhelper (>= 12)
+Standards-Version: 3.9.8
+Homepage: https://github.com/okineadev/dotload/
+
+Package: dotload
+Architecture: all
+Depends: ${misc:Depends}, ${shlibs:Depends}, git
+Description: A tool to install dotfiles and other necessary tools
+  This tool helps to quickly install configuration files (dotfiles) and other
+  necessary tools from the "dotfiles" repository from the user's GitHub
