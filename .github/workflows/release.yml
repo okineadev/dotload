@@ -60,4 +60,4 @@ jobs:
           dotload/bin/dotload
           dotload_*.deb
           dotload_*.dsc
-          dotload_*.tar.gz
+          dotload_*.tar.xz
