@@ -37,6 +37,7 @@ jobs:
       run: |
         export DEBEMAIL="81070564+okineadev@users.noreply.github.com"
         export DEBFULLNAME="Okinea Dev"
+        tag="${{ github.ref_name }}"
         release_version=$(echo "$tag" | sed 's/v//g')
         changes="You can view the changes at this link - https://github.com/okineadev/dotload/releases/tag/$tag"
 
