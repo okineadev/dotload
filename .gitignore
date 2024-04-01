@@ -11,3 +11,5 @@ dotload/debian/.debhelper
 dotload/debian/debhelper-build-stamp
 dotload/debian/files
 dotload/debian/changelog
+dotload/debian/dotload.debhelper.log
+dotload/debian/dotload.substvars
