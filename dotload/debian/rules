@@ -5,3 +5,6 @@
 
 clean:
 	dh_clean
+
+override_dh_auto_install:
+	dh_install bin/dotload /usr/bin
