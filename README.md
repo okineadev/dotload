@@ -1,24 +1,37 @@
-# dotload 📦
+![GitHub Release Date][github-release-date]
+![GitHub Actions Workflow Status][github-actions-workflow-status]
+![GitHub Issues or Pull Requests][github-issues]
+![GitHub License][github-license]
+![Made with love][made-with-love]
+![GitHub Repo stars][github-stars]
 
-![dotload (2)](https://github.com/okineadev/dotload/assets/81070564/724f228f-aaa1-45ad-bc1d-fbdf5bf6cd32)
+<!-- PROJECT LOGO -->
+<div align="center">
+  <a href="https://github.com/okineadev/dotload">
+    <img src="public/banner.png" alt="Banner">
+  </a>
 
-**dotload** - This is a **simple**, **intuitive** and **fast**⚡ tool for installing configurations (dotfiles) and other necessary tools on any machine!
+  <h3 align="center">dotload</h3>
 
-<!-- ## 📋 Table of Contents
+  <p align="center">
+    <p>
+    <b>dotload</b> - This is a <b>simple</b>, <b>intuitive</b> and <b>fast</b>⚡ tool for installing configurations (dotfiles) and other necessary tools on any machine!</p>
+    <a href="#%EF%B8%8F-installation"><b>Installation</b></a>
+    ·
+    <a href="https://github.com/okineadev/dotload/issues/new?labels=bug&template=bug_report.md"><b>Report Bug</b></a>
+    ·
+    <a href="https://github.com/okineadev/dotload/issues/new?labels=enhancement&template=feature_request.md"><b>Request Feature</b></a>
+</div>
 
-- [Installation](#installation)
-- [Usage](#usage)
-- [Features](#features)
-- [Contributing](#contributing)
-- [License](#license) -->
+## ℹ️ About the project
 
-## 🤔 How it Works
+![Screenshot](public/screenshot.png)
 
-`dotload` works by cloning your specified dotfiles repository from **GitHub**. It was created to simplify the installation of dotfiles, necessary development tools (such as nodejs, php, etc.), and other packages as much as possible.
+`dotload` works by cloning the dotfiles repository you specify from **GitHub**
 
-Before using dotload, you need to create your own repository named "`dotfiles`" on GitHub. This repository should contain your dotfiles and any other configuration files that you want to clone to your new machine.
+This tool was created to make it as **easy as possible** to install dotfiles, required development tools (such as **nodejs**, **php**, **etc**.) and other packages.
 
-The script is invoked with the GitHub username whose dotfiles you want to clone. You can also specify a branch name if you want to clone a specific branch.
+The tool is invoked with the name of the GitHub user whose dotfiles you want to clone. You can also specify a branch name if you want to clone a specific branch, see "[**Advanced usage**](#advanced-usage)"
 
 ## ⚙️ Installation
 
@@ -31,6 +44,8 @@ sudo apt install dotload
 ```
 
 Or you can run without installation on **any** OS with this command:
+> [!WARNING]
+> This use case can be unstable
 
 ```bash
 . <(wget -qO- https://github.com/okineadev/dotload/releases/latest/download/dotload) @<username>
@@ -43,6 +58,9 @@ dotload @<username>
 ```
 
 Where `username` is the **GitHub username** whose dotfiles you want to clone.
+
+> [!WARNING]
+> The username cannot contain emojis, spaces or other non-standard characters
 
 ### Advanced Usage
 
@@ -60,6 +78,36 @@ dotload @<username> --branch <branch_name>
 
 Where `branch_name` is the branch of the repository you want to clone. If not specified, the default branch is used.
 
+<br>
+
+Use the `--help` flag to get help:
+
+```bash
+dotload --help
+# Or
+dotload help
+
+# Help page...
+```
+
+There is also support for `manpages`:
+
+```bash
+man dotload
+
+# Documentation ....
+```
+
+## 🛣️ Roadmap
+
+- [ ] Solve the problem using the tool without installing ([**#2**](https://github.com/okineadev/dotload/issues/2))
+- [ ] Add multilingual **README.md** support
+  - [ ] 🇺🇦 Ukrainian
+  - [ ] 🇵🇱 Polish
+  - [ ] 🇩🇪 German
+- [ ] Write instructions for developers (package assembly)
+- [ ] Add installation options such as **Snap**, **AUR**, **RPM**
+
 ## 🤝 Contributing
 
 Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are greatly appreciated.
@@ -76,16 +124,37 @@ Also, please read our [**Code of Conduct**](CODE_OF_CONDUCT.md), and follow it i
 
 ## 📝 License
 
-This project is [**MIT**](https://opensource.org/license/MIT) licensed.
+This project is [**MIT**][mit-license-link] licensed.
 
 See [**LICENSE**](LICENSE)
 
 ## 📨 Contact
 
-**Telegram:** [**@Okinea**](https://t.me/okinea 'Telegram link')
+**Telegram:** [**@Okinea**][telegram-link]
 
-<br>
+## ❤️ Support
 
-<img src="https://img.shields.io/badge/-black?style=for-the-badge&logo=githubcopilot&logoColor=black&label=AI%20Generated&labelColor=white&color=black" style="border-radius:5px;box-shadow:0px 0px 9px darkgray;border:solid 1px black" alt="AI Generated" title="Partially AI generated content">
+This project is completely **free** and **open source**.
+
+If you liked this tool - I would be very grateful if you could support me financially
+
+Here are the details for transfers:
+
+- 🫙 **Jar for donations**: https://send.monobank.ua/jar/6rUVs4yasg
+- 💎 **Ton wallet**: `UQBaBIBtKJpdwc4jKSGd70LZyQnEf-Nx5edzZlZAAGkHnZ7E`
+
+
+<hr>
+
+<img src="https://img.shields.io/badge/-black?style=for-the-badge&logo=githubcopilot&logoColor=black&label=AI%20Generated&labelColor=white&color=black" style="border-radius:5px;box-shadow:0px 0px 9px black;border:solid 1px black" alt="AI Generated" title="Partially AI generated content">
 
 <sub><i>The code and content were partially generated by AI.</i></sub>
+
+[github-release-date]: https://img.shields.io/github/release-date/okineadev/dotload
+[github-actions-workflow-status]: https://img.shields.io/github/actions/workflow/status/okineadev/dotload/release.yml
+[github-issues]: https://img.shields.io/github/issues/okineadev/dotload?color=shine-green
+[github-license]: https://img.shields.io/github/license/okineadev/dotload
+[made-with-love]: https://img.shields.io/badge/made_with-%E2%9D%A4%EF%B8%8F-white
+[github-stars]: https://img.shields.io/github/stars/okineadev/dotload
+[telegram-link]: https://t.me/okinea 'Telegram link'
+[mit-license-link]: https://opensource.org/license/MIT
