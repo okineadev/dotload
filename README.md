@@ -1,5 +1,7 @@
 # dotload 📦
 
+![dotload (2)](https://github.com/okineadev/dotload/assets/81070564/724f228f-aaa1-45ad-bc1d-fbdf5bf6cd32)
+
 **dotload** - This is a **simple**, **intuitive** and **fast**⚡ tool for installing configurations (dotfiles) and other necessary tools on any machine!
 
 <!-- ## 📋 Table of Contents
@@ -31,7 +33,7 @@ sudo apt install dotload
 Or you can run without installation on **any** OS with this command:
 
 ```bash
-wget -qO- https://github.com/okineadev/dotload/releases/latest/download/dotload | bash
+. <(wget -qO- https://github.com/okineadev/dotload/releases/latest/download/dotload) @<username>
 ```
 
 ## 🚀 Usage
