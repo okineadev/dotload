@@ -12,7 +12,7 @@ confinement: devmode
 parts:
   dotload:
     # source: https://github.com/okineadev/dotload/releases/download/v1.0.1/dotload_1.0.1.tar.xz
-    source: dotload_*.tar.xz
+    source: dotload_1.0.1.tar.xz
     plugin: dump
 
 apps:
