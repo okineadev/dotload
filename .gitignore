@@ -5,6 +5,7 @@
 *.dsc
 *.tar.gz
 *.tar.xz
+*.snap
 
 dotload/debian/dotload
 dotload/debian/.debhelper
