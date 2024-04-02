@@ -107,6 +107,9 @@ man dotload
   - [ ] 🇩🇪 German
 - [ ] Write instructions for developers (package assembly)
 - [ ] Add installation options such as **Snap**, **AUR**, **RPM**
+  - [ ] **Snap** - In progress 🚧
+  - [ ] **AUR**
+  - [ ] **RPM**
 
 ## 🤝 Contributing
 
