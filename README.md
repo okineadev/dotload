@@ -100,7 +100,7 @@ man dotload
 
 ## 🛣️ Roadmap
 
-- [ ] Solve the problem using the tool without installing ([**#2**](https://github.com/okineadev/dotload/issues/2))
+- [x] Solve the problem using the tool without installing ([**#2**](https://github.com/okineadev/dotload/issues/2))
 - [ ] Add multilingual **README.md** support
   - [ ] 🇺🇦 Ukrainian
   - [ ] 🇵🇱 Polish
