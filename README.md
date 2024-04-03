@@ -48,7 +48,7 @@ Or you can run without installation on **any** OS with this command:
 > This use case can be unstable
 
 ```bash
-. <(wget -qO- https://github.com/okineadev/dotload/releases/latest/download/dotload) @<username>
+bash <(curl -sL https://github.com/okineadev/dotload/releases/latest/download/dotload) @<username>
 ```
 
 ## 🚀 Usage
