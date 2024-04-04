@@ -23,15 +23,17 @@
     <a href="https://github.com/okineadev/dotload/issues/new?labels=enhancement&template=feature_request.md"><b>Request Feature</b></a>
 </div>
 
+<br>
+
+Change language: [🇺🇦 UA](docs/uk_UA/README.md)
+
 ## ℹ️ About the project
 
 ![Screenshot](public/screenshot.png)
 
-`dotload` works by cloning the dotfiles repository you specify from **GitHub**
+`dotload` works by cloning the specified user's **GitHub** dotfiles repository
 
 This tool was created to make it as **easy as possible** to install dotfiles, required development tools (such as **nodejs**, **php**, **etc**.) and other packages.
-
-The tool is invoked with the name of the GitHub user whose dotfiles you want to clone. You can also specify a branch name if you want to clone a specific branch, see "[**Advanced usage**](#advanced-usage)"
 
 ## ⚙️ Installation
 
@@ -44,12 +46,12 @@ sudo apt install dotload
 ```
 
 Or you can run without installation on **any** OS with this command:
-> [!WARNING]
-> This use case can be unstable
 
 ```bash
 bash <(curl -sL https://github.com/okineadev/dotload/releases/latest/download/dotload) @<username>
 ```
+
+More installation methods will be added soon
 
 ## 🚀 Usage
 
@@ -68,7 +70,8 @@ Where `username` is the **GitHub username** whose dotfiles you want to clone.
 dotload @<username> <branch_name>
 ```
 
-You can also use `-b` or `--branch` flags:
+> [!TIP]
+> You can also use `-b` or `--branch` flags:
 
 ```bash
 dotload @<username> -b <branch_name>
@@ -78,15 +81,14 @@ dotload @<username> --branch <branch_name>
 
 Where `branch_name` is the branch of the repository you want to clone. If not specified, the default branch is used.
 
-<br>
+This can be useful if you have multiple machine usage scenarios
+
+---
 
 Use the `--help` flag to get help:
 
 ```bash
 dotload --help
-# Or
-dotload help
-
 # Help page...
 ```
 
@@ -94,15 +96,35 @@ There is also support for `manpages`:
 
 ```bash
 man dotload
-
-# Documentation ....
 ```
+
+### Custom installation scripts
+
+You can also add an installation script to your `dotfiles` repository to fully automate the installation and get more features
+
+The installation file can have the following names and locations:
+
+- _install.sh_
+- _install_
+- _bootstrap.sh_
+- _bootstrap_
+- _script/bootstrap_
+- _setup.sh_
+- _setup_
+- _script/setup_
+
+If none of these files are found, then any files or folders in your selected dotfiles repository starting with `.` are automatically symlinked to the `$HOME` directory.
+
+### Configuration
+
+You can also **specify a custom installation script**
+or make it optional in `dotload.conf`, for this read the [**dotload.conf documentation**](docs/dotload_conf.md)
 
 ## 🛣️ Roadmap
 
 - [x] Solve the problem using the tool without installing ([**#2**](https://github.com/okineadev/dotload/issues/2))
 - [ ] Add multilingual **README.md** support
-  - [ ] 🇺🇦 Ukrainian
+  - [x] 🇺🇦 Ukrainian
   - [ ] 🇵🇱 Polish
   - [ ] 🇩🇪 German
 - [ ] Write instructions for developers (package assembly)
@@ -144,8 +166,7 @@ If you liked this tool - I would be very grateful if you could support me financ
 Here are the details for transfers:
 
 - 🫙 **Jar for donations**: https://send.monobank.ua/jar/6rUVs4yasg
-- 💎 **Ton wallet**: `UQBaBIBtKJpdwc4jKSGd70LZyQnEf-Nx5edzZlZAAGkHnZ7E`
-
+- 💎 **TON wallet**: `UQBaBIBtKJpdwc4jKSGd70LZyQnEf-Nx5edzZlZAAGkHnZ7E`
 
 <hr>
 
