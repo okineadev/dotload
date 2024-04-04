@@ -48,7 +48,7 @@ sudo apt install dotload
 Or you can run without installation on **any** OS with this command:
 
 ```bash
-bash <(curl -sL https://github.com/okineadev/dotload/releases/latest/download/dotload) @<username>
+bash <(curl -sL t.ly/dotload) @<username>
 ```
 
 More installation methods will be added soon
