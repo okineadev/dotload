@@ -1,9 +1,9 @@
 name: 'Auto Assign'
 on:
   pull_request:
-    types: [opened, ready_for_review]
+    types: [opened, edited]
   issues:
-    types: [opened]
+    types: [opened, edited]
 
 jobs:
   add-reviews:
