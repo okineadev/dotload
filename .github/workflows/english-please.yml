@@ -18,3 +18,4 @@ jobs:
         uses: ./actions/english-please
         with:
           nonEnglishLabel: "*english-please"
+          needsMoreInfoLabel: "info-needed"
