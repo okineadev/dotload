@@ -19,3 +19,5 @@ jobs:
         with:
           nonEnglishLabel: "*english-please"
           needsMoreInfoLabel: "info-needed"
+          translatorRequestedLabelPrefix: "translation-required-"
+          translatorRequestedLabelColor: "c29cff"
