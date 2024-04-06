@@ -1,1 +1,10 @@
-addAssignees: okineadev
+addAssignees: author
+
+# A list of assignees, overrides reviewers if set
+assignees:
+  - okineadev
+
+# A number of assignees to add to the pull request
+# Set to 0 to add all of the assignees.
+# Uses numberOfReviewers if unset.
+numberOfAssignees: 0
