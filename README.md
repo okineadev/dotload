@@ -165,7 +165,8 @@ If you liked this tool - I would be very grateful if you could support me financ
 
 Here are the details for transfers:
 
-- 🫙 **Jar for donations**: https://send.monobank.ua/jar/6rUVs4yasg
+- 🍩 **Donatello**: <https://donatello.to/okineadev>
+- 🫙 **Jar for donations**: <https://send.monobank.ua/jar/6rUVs4yasg>
 - 💎 **TON wallet**: `UQBaBIBtKJpdwc4jKSGd70LZyQnEf-Nx5edzZlZAAGkHnZ7E`
 
 <hr>
