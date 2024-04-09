@@ -8,7 +8,7 @@
 <!-- PROJECT LOGO -->
 <div align="center">
   <a href="https://github.com/okineadev/dotload">
-    <img src="../../public/banner.png" alt="Банер">
+    <img src="../../public/banner.png" alt="Баннер">
   </a>
 
   <h3 align="center">dotload</h3>
@@ -165,7 +165,7 @@ man dotload
 Ось реквізити для переказів:
 - 🍩 **Donatello**: <https://donatello.to/okineadev>
 - 🫙 **Банка для донатів**: <https://send.monobank.ua/jar/6rUVs4yasg>
-- 💎 **TON гаманець**: `UQBaBIBtKJpdwc4jKSGd70LZyQnEf-Nx5edzZlZAAGkHnZ7E`.
+- 💎 **TON гаманець**: `UQBaBIBtKJpdwc4jKSGd70LZyQnEf-Nx5edzZlZAAGkHnZ7E`
 
 <hr>
 
