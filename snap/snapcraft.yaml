@@ -1,20 +1,66 @@
 name: dotload
 base: core22
 version: '1.0.1'
-summary: A tool to install dotfiles and other necessary tools
-description: |
-  This tool helps to quickly install configuration files (dotfiles) and other
-  necessary tools from the "dotfiles" repository from the user's GitHub
 
-grade: devel
-confinement: devmode
+summary: This is a tool for installing dotfiles and other tools on any machine
+description: |
+  `dotload` works by cloning the specified user's **GitHub** dotfiles repository
+
+  This tool was created to make it as **easy as possible** to install dotfiles, required development tools (such as **nodejs**, **php**, **etc**.) and other packages.
+
+title: dotload
+contact: https://t.me/okinea
+donation: https://github.com/okineadev/dotload?tab=readme-ov-file#%EF%B8%8F-support
+source-code: https://github.com/okineadev/dotload
+license: MIT
+
+grade: stable
+confinement: strict
+adopt-info: dotload
+
+architectures:
+  - build-on: amd64
+    build-for: all
+
+# TODO: idk. what is this...
+lint:
+  ignore:
+    - library:
+        - lib/i386-linux-gnu/**
+        - usr/lib/i386-linux-gnu/**
+        - lib32/**
+        - usr/lib32/**
 
 parts:
   dotload:
-    # source: https://github.com/okineadev/dotload/releases/download/v1.0.1/dotload_1.0.1.tar.xz
     source: dotload_1.0.1.tar.xz
     plugin: dump
+    stage-packages:
+      - git
+
+plugs:
+  personal-files:
+    # TODO: Consider the expediency of the rights
+    read:
+      - $HOME/.gitconfig
+      - $HOME/dotfiles
+    write:
+      - $HOME/.dotload
+      - $HOME/dotfiles
+  home:
+    interface: home
+  network:
+    interface: network
 
 apps:
   dotload:
     command: bin/dotload
+    environment:
+      # TODO: Remove unnecessary values
+      LD_LIBRARY_PATH: '$LD_LIBRARY_PATH:$SNAP/lib/x86_64-linux-gnu:$SNAP/usr/lib/x86_64-linux-gnu:$SNAP/usr/lib/x86_64-linux-gnu/openssl-1.0.0/engines:$SNAP/usr/lib/x86_64-linux-gnu/sasl2'
+
+layout:
+  /usr/lib/git-core:
+    symlink: $SNAP/usr/lib/git-core
+  /usr/share/git-core:
+    symlink: $SNAP/usr/share/git-core

@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 
-# dotload - A simple script to download dotfiles from a git repository
+# Fix snap issue with $HOME variable
+_HOME="/home/$(whoami)"
 
-DOTFILES_DIR="$HOME/.dotload"
+DOTFILES_DIR="$_HOME/.dotload"
 
 hyperlink() {
     echo -e "\e]8;;$1\e\\$2\e]8;;\e\\"
@@ -264,14 +265,14 @@ dotload() {
     echo ""
     echo -e "[\e[1mSymlinking dotfiles to home directory\e[0m]\n"
     for file in $(git ls-files "$DOTFILES_DIR" | grep -E '^\.'); do
-        local dir=$(dirname "$HOME/$file")
+        local dir=$(dirname "$_HOME/$file")
 
         if [ ! -d "$dir" ]; then
             mkdir -p "$dir"
         fi
 
         printf "• Symlinking \e[1m%s\e[0m ..." "$file"
-        local output="$(ln -sf "$file" "$HOME/$file")"
+        local output="$(ln -sf "$file" "$_HOME/$file")"
         if [[ $output -eq 0 ]]; then
             tput cub 3
             printf "\e[1;32m✓\e[0m  \n"
