@@ -25,8 +25,10 @@ jobs:
       uses: actions/checkout@v4.1.2
 
     - name: ⚙️ Install dependencies
-      run: |
-        sudo apt install devscripts dput debhelper -y
+      uses: awalsh128/cache-apt-pkgs-action@latest
+      with:
+        packages: devscripts dput debhelper
+        version: 1.0
 
     - name: 🔐 Set up GPG key
       run: |
