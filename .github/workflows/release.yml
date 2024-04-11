@@ -56,11 +56,12 @@ jobs:
 
     - name: 🛠️ Build Snap package
       run: |
+        sudo iptables -P FORWARD ACCEPT
         sudo snap install snapcraft --classic
         sudo snap install lxd
         sudo usermod -a -G lxd $USER
-        echo "root:1000000:1000000000" | sudo tee -a /etc/subuid /etc/subgid
-        sudo lxd init --minimal
+        sudo snap run lxd init --auto
+        sudo snap run lxd waitready
 
         # Login
         export SNAPCRAFT_STORE_CREDENTIALS="${{ secrets.SNAPCRAFT_CREDENTIALS }}"
@@ -71,7 +72,7 @@ jobs:
         sed -i "s/@@VERSION@@/$release_version/g" snap/snapcraft.yaml
 
         # Build snap package
-        snapcraft --verbose
+        sg lxd -c 'snap run snapcraft --verbose'
 
     - name: 📦 Upload package to Ubuntu PPA
       run: |
