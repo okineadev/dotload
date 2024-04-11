@@ -46,11 +46,11 @@
   <summary><b>apt (PPA) (Рекомендовано) ✅</b></summary>
   <br>
 
-```bash
-sudo add-apt-repository ppa:salumin/tools
-sudo apt update
-sudo apt install dotload
-```
+  ```bash
+  sudo add-apt-repository ppa:salumin/tools
+  sudo apt update
+  sudo apt install dotload
+  ```
 
 </details>
 
@@ -58,13 +58,13 @@ sudo apt install dotload
   <summary><b>Snap ⚠️</b></summary>
   <br>
 
-> [!NOTE]
-> Версія пакету зі **snap** може не працювати з кастомними скриптами інсталяції
+  > [!NOTE]
+  > Версія пакету зі **snap** може не працювати з кастомними скриптами інсталяції
 
-```bash
-curl -O https://github.com/okineadev/dotload/releases/download/v1.0.2/dotload_1.0.2_all.snap
-sudo snap install dotload_1.0.2_all.snap --dangerous
-```
+  ```bash
+  curl -O https://github.com/okineadev/dotload/releases/download/v1.0.2/dotload_1.0.2_all.snap
+  sudo snap install dotload_1.0.2_all.snap --dangerous
+  ```
 
 </details>
 
@@ -92,7 +92,7 @@ dotload @<username> <branch_name>
 ```
 
 > [!TIP]
-> Ви також можете використовувати прапори `-b` або `--branch`:
+> Ви також можете використовувати прапорці `-b` або `--branch`:
 
 ```bash
 dotload @<username> -b <branch_name>
