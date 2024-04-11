@@ -59,6 +59,7 @@ jobs:
         sudo snap install snapcraft --classic
         sudo snap install lxd
         sudo usermod -a -G lxd $USER
+        echo "root:1000000:1000000000" | sudo tee -a /etc/subuid /etc/subgid
         sudo lxd init --minimal
 
         # Login
