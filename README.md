@@ -147,7 +147,7 @@ or make it optional in `dotload.conf`, for this read the [**dotload.conf documen
   - [ ] 🇩🇪 German
 - [ ] Write instructions for developers (package assembly)
 - [ ] Add installation options such as **Snap**, **AUR**, **RPM**
-  - [ ] **Snap** - In progress 🚧
+  - [x] **Snap**
   - [ ] **AUR**
   - [ ] **RPM**
 
