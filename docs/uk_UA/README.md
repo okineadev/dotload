@@ -46,24 +46,26 @@
   <summary><b>apt (PPA) (Рекомендовано) ✅</b></summary>
   <br>
 
-  ```bash
-  sudo add-apt-repository ppa:salumin/tools
-  sudo apt update
-  sudo apt install dotload
-  ```
+```bash
+sudo add-apt-repository ppa:salumin/tools
+sudo apt update
+sudo apt install dotload
+```
+
 </details>
 
 <details>
   <summary><b>Snap ⚠️</b></summary>
   <br>
 
-  > [!NOTE]
-  > Версія пакету зі **snap** може не працювати з кастомними скриптами інсталяції
+> [!NOTE]
+> Версія пакету зі **snap** може не працювати з кастомними скриптами інсталяції
 
-  ```bash
-  curl -O https://github.com/okineadev/dotload/releases/download/v1.0.2/dotload_1.0.2_all.snap
-  sudo snap install dotload_1.0.2_all.snap --dangerous
-  ```
+```bash
+curl -O https://github.com/okineadev/dotload/releases/download/v1.0.2/dotload_1.0.2_all.snap
+sudo snap install dotload_1.0.2_all.snap --dangerous
+```
+
 </details>
 
 Також ви можете запустити його без встановлення на **будь-якій** ОС за допомогою цієї команди:
@@ -181,6 +183,7 @@ man dotload
 Якщо вам сподобався цей інструмент - я буду дуже вдячний, якщо ви зможете підтримати мене фінансово
 
 Ось реквізити для переказів:
+
 - 🍩 **Donatello**: <https://donatello.to/okineadev>
 - 🫙 **Банка для донатів**: <https://send.monobank.ua/jar/6rUVs4yasg>
 - 💎 **TON гаманець**: `UQBaBIBtKJpdwc4jKSGd70LZyQnEf-Nx5edzZlZAAGkHnZ7E`
