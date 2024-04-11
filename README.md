@@ -56,7 +56,7 @@ You can install `dotload` using the following package managers:
   <summary><b>Snap ⚠️</b></summary>
   <br>
 
-  > [!WARNIN]
+  > [!WARNING]
   > The **snap** version of the package may not work with custom installation scripts
 
   ```bash
