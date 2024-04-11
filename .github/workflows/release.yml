@@ -72,7 +72,7 @@ jobs:
         sed -i "s/@@VERSION@@/$release_version/g" snap/snapcraft.yaml
 
         # Build snap package
-        sg lxd -c 'export SNAPCRAFT_STORE_CREDENTIALS="${{ secrets.SNAPCRAFT_CREDENTIALS }}" && snap run snapcraft --verbose'
+        sg lxd -c 'snap run snapcraft --verbose'
 
     - name: 📦 Upload package to Ubuntu PPA
       run: |
@@ -80,6 +80,8 @@ jobs:
 
     - name: 📦 Upload package to Snap Store
       run: |
+        # Login
+        export SNAPCRAFT_STORE_CREDENTIALS="${{ secrets.SNAPCRAFT_CREDENTIALS }}"
         snapcraft upload --release=stable dotload_*_all.snap
 
     - name: ⬆️ Upload files to release
