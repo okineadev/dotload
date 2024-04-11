@@ -34,7 +34,7 @@ jobs:
       run: |
         echo "${{ secrets.PPA_GPG_KEY }}" | gpg --allow-secret-key-import --import --batch --yes
 
-    - name: 🛠️ Build
+    - name: 🛠️ Build .deb package
       working-directory: ./dotload
       run: |
         export DEBEMAIL="81070564+okineadev@users.noreply.github.com"
@@ -51,9 +51,31 @@ jobs:
         debuild --no-lintian -i -p"gpg --batch --passphrase ${{ secrets.PPA_GPG_KEY_PASSPHRASE }} --pinentry-mode loopback" $key
         debuild --no-lintian -S -sa -p"gpg --batch --passphrase ${{ secrets.PPA_GPG_KEY_PASSPHRASE }} --pinentry-mode loopback" $key
 
+    - name: 🛠️ Build Snap package
+      run: |
+        sudo snap install snapcraft --classic
+        sudo snap install lxd
+        sudo usermod -a -G lxd $USER
+        lxd init --minimal
+
+        # Login
+        export SNAPCRAFT_STORE_CREDENTIALS="${{ secrets.SNAPCRAFT_CREDENTIALS }}"
+
+        tag="${{ github.ref_name }}"
+        release_version=$(echo "$tag" | sed 's/v//g')
+        # TODO: fix this crutch
+        sed -i "s/@@VERSION@@/$release_version/g" snap/snapcraft.yaml
+
+        # Build snap package
+        snapcraft --verbose
+
     - name: 📦 Upload package to Ubuntu PPA
       run: |
         dput ppa:salumin/tools dotload_*_source.changes
+
+    - name: 📦 Upload package to Snap Store
+      run: |
+        snapcraft upload --release=stable dotload_*_all.snap
 
     - name: ⬆️ Upload files to release
       uses: softprops/action-gh-release@v1
@@ -61,5 +83,6 @@ jobs:
         files: |
           dotload/bin/dotload
           dotload_*.deb
+          dotload_*.snap
           dotload_*.dsc
           dotload_*.tar.xz

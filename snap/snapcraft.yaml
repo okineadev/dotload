@@ -1,6 +1,5 @@
 name: dotload
 base: core22
-version: '1.0.1'
 
 summary: This is a tool for installing dotfiles and other tools on any machine
 description: |
@@ -33,8 +32,13 @@ lint:
 
 parts:
   dotload:
-    source: dotload_1.0.1.tar.xz
+    # TODO: fix this crutch
+    source: dotload_@@VERSION@@.tar.xz
     plugin: dump
+    override-pull: |
+      craftctl default
+      version="$(git describe --tags --abbrev=0 | sed 's/v//g')"
+      craftctl set version="$version"
     stage-packages:
       - git
 
@@ -57,7 +61,7 @@ apps:
     command: bin/dotload
     environment:
       # TODO: Remove unnecessary values
-      LD_LIBRARY_PATH: '$LD_LIBRARY_PATH:$SNAP/lib/x86_64-linux-gnu:$SNAP/usr/lib/x86_64-linux-gnu:$SNAP/usr/lib/x86_64-linux-gnu/openssl-1.0.0/engines:$SNAP/usr/lib/x86_64-linux-gnu/sasl2'
+      LD_LIBRARY_PATH: '$LD_LIBRARY_PATH:$SNAP/lib/$SNAPCRAFT_ARCH_TRIPLET:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/openssl-1.0.0/engines:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/sasl2'
 
 layout:
   /usr/lib/git-core:
