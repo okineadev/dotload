@@ -23,9 +23,11 @@
     <a href="https://github.com/okineadev/dotload/issues/new?labels=enhancement&template=feature_request.md"><b>Request Feature</b></a>
 </div>
 
-<br>
-
-Change language: [🇺🇦 UA](docs/uk_UA/README.md)
+<a href="docs/uk_UA/README.md"><img
+  height="20"
+  src="public/flag-ua.png"
+  alt="Ukrainian">
+</a>
 
 ## ℹ️ About the project
 

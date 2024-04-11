@@ -24,9 +24,11 @@
   </p>
 </div>
 
-<br>
-
-Змінити мову: [🇬🇧 EN](../../README.md)
+<a href="docs/uk_UA/README.md"><img
+  height="20"
+  src="../../public/flag-us.png"
+  alt="Ukrainian">
+</a>
 
 ## ℹ️ Про проект
 
