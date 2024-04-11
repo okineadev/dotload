@@ -38,21 +38,37 @@
 
 ## ⚙️ Встановлення
 
-Ви можете встановити `dotload` за допомогою наступної команди:
+Ви можете встановити `dotload` за допомогою цих пакетних менеджерів:
 
-```bash
-sudo add-apt-repository ppa:salumin/tools
-sudo apt update
-sudo apt install dotload
-```
+<details>
+  <summary><b>apt (PPA) (Рекомендовано) ✅</b></summary>
+  <br>
+
+  ```bash
+  sudo add-apt-repository ppa:salumin/tools
+  sudo apt update
+  sudo apt install dotload
+  ```
+</details>
+
+<details>
+  <summary><b>Snap ⚠️</b></summary>
+  <br>
+
+  > [!NOTE]
+  > Версія пакету зі **snap** може не працювати з кастомними скриптами інсталяції
+
+  ```bash
+  curl -O https://github.com/okineadev/dotload/releases/download/v1.0.2/dotload_1.0.2_all.snap
+  sudo snap install dotload_1.0.2_all.snap --dangerous
+  ```
+</details>
 
 Також ви можете запустити його без встановлення на **будь-якій** ОС за допомогою цієї команди:
 
 ```bash
 bash <(curl -sL t.ly/dotload) @<username>
 ```
-
-Інші способи установки будуть додані найближчим часом
 
 ## 🚀 Використання
 
