@@ -24,10 +24,10 @@
   </p>
 </div>
 
-<a href="docs/uk_UA/README.md"><img
+<a href="../../README.md"><img
   height="20"
   src="../../public/flag-us.png"
-  alt="Ukrainian">
+  alt="English">
 </a>
 
 ## ℹ️ Про проект
