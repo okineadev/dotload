@@ -1,5 +1,6 @@
 name: dotload
 base: core22
+version: '@@VERSION@@'
 
 summary: This is a tool for installing dotfiles and other tools on any machine
 description: |
@@ -35,10 +36,6 @@ parts:
     # TODO: fix this crutch
     source: dotload_@@VERSION@@.tar.xz
     plugin: dump
-    override-pull: |
-      craftctl default
-      version="$(git describe --tags --abbrev=0 | sed 's/v//g')"
-      craftctl set version="$version"
     stage-packages:
       - git
 
