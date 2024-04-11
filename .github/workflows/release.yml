@@ -56,7 +56,7 @@ jobs:
         sudo snap install snapcraft --classic
         sudo snap install lxd
         sudo usermod -a -G lxd $USER
-        lxd init --minimal
+        sudo lxd init --minimal
 
         # Login
         export SNAPCRAFT_STORE_CREDENTIALS="${{ secrets.SNAPCRAFT_CREDENTIALS }}"
