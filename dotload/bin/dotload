@@ -1,7 +1,25 @@
 #!/usr/bin/env bash
 
-# Fix snap issue with $HOME variable
+# Fix snap issue with $HOME variable.
+# This fix is ​​due to the fact that if dotload was
+# installed with snap - it will use "~/snap/dotload/<revision>/" as $HOME
+# That is, it means that dotload will install dotfiles in an isolated
+# environment, and not in the real home folder
+# To prevent such a bug, "/home/$(whoami)" will be used
+# the whoami command returns the name of the current user
+# For example: whoami will output "okineadev", then the home directory will be "/home/okineadev" and then everything will work fine
 _HOME="/home/$(whoami)"
+
+INSTALLED_FROM=""
+NOTES=""
+
+if [[ $(echo "$0" | cut -c1-6) == "/snap/" ]]; then
+    INSTALLED_FROM="snap"
+fi
+
+if [[ $INSTALLED_FROM == "snap" ]]; then
+    NOTES="Snap version "
+fi
 
 DOTFILES_DIR="$_HOME/.dotload"
 
@@ -10,7 +28,7 @@ hyperlink() {
 }
 
 # Prints the header for the dotload script
-echo -e "\e[1m● dotload ($(hyperlink "https://github.com/okineadev/dotload/" "GitHub"))\e[0m"
+echo -e "$NOTES\e[1m($(hyperlink "https://github.com/okineadev/dotload/" "GitHub"))\e[0m"
 echo ""
 
 # Function to check if the entered username is valid
