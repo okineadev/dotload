@@ -71,7 +71,7 @@
 Також ви можете запустити його без встановлення на **будь-якій** ОС за допомогою цієї команди:
 
 ```bash
-bash <(curl -sL t.ly/dotload) @<username>
+bash <(curl -sL https://github.com/okineadev/dotload/releases/latest/download/dotload) @<username>
 ```
 
 ## 🚀 Використання

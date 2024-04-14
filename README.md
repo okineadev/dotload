@@ -68,7 +68,7 @@ You can install `dotload` using the following package managers:
 Or you can run without installation on **any** OS with this command:
 
 ```bash
-bash <(curl -sL t.ly/dotload) @<username>
+bash <(curl -sL https://github.com/okineadev/dotload/releases/latest/download/dotload) @<username>
 ```
 
 ## 🚀 Usage
