@@ -60,7 +60,7 @@ jobs:
       run: |
         sudo iptables -P FORWARD ACCEPT
         sudo snap install snapcraft --classic
-        sudo usermod -a -G lxd $USER
+        sudo usermod -aG lxd $USER
         sudo snap run lxd init --auto
         sudo snap run lxd waitready
 
@@ -72,6 +72,7 @@ jobs:
 
         # Build snap package
         make snap-package \
+          WORKFLOW="true" \
           VERSION="$release_version"
 
     - name: ⬆️ Upload files to release
