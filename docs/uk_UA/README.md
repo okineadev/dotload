@@ -55,6 +55,22 @@
 </details>
 
 <details>
+  <summary><b>З install.sh</b></summary>
+  <br/>
+
+  ```bash
+  curl -sL https://raw.githubusercontent.com/okineadev/dotload/main/install.sh | bash
+  ```
+
+  Видалення:
+
+  ```bash
+  sudo rm /bin/dotload && hash -r
+  ```
+
+</details>
+
+<details>
   <summary><b>Snap ⚠️</b></summary>
   <br>
 

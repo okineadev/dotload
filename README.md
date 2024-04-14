@@ -43,7 +43,7 @@ You can install `dotload` using the following package managers:
 
 <details>
   <summary><b>apt (PPA) (Reccomended) ✅</b></summary>
-  <br>
+  <br/>
 
   ```bash
   sudo add-apt-repository ppa:salumin/tools
@@ -53,8 +53,24 @@ You can install `dotload` using the following package managers:
 </details>
 
 <details>
+  <summary><b>With install.sh</b></summary>
+  <br/>
+
+  ```bash
+  curl -sL https://raw.githubusercontent.com/okineadev/dotload/main/install.sh | bash
+  ```
+
+  Uninstall:
+
+  ```bash
+  sudo rm /bin/dotload && hash -r
+  ```
+
+</details>
+
+<details>
   <summary><b>Snap ⚠️</b></summary>
-  <br>
+  <br/>
 
   > [!WARNING]
   > The **snap** version of the package may not work with custom installation scripts
