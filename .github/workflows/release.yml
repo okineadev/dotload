@@ -60,7 +60,7 @@ jobs:
       run: |
         sudo iptables -P FORWARD ACCEPT
         sudo snap install snapcraft --classic
-        sudo usermod -aG lxd $USER
+        sudo usermod -a -G lxd $USER
         sudo snap run lxd init --auto
         sudo snap run lxd waitready
 
