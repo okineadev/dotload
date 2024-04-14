@@ -1,19 +1,19 @@
 #!/usr/bin/env bash
 
-# Fix snap issue with $HOME variable.
-# This fix is ​​due to the fact that if dotload was
-# installed with snap - it will use "~/snap/dotload/<revision>/" as $HOME
-# That is, it means that dotload will install dotfiles in an isolated
-# environment, and not in the real home folder
-# To prevent such a bug, "/home/$(whoami)" will be used
-# the whoami command returns the name of the current user
-# For example: whoami will output "okineadev", then the home directory will be "/home/okineadev" and then everything will work fine
-_HOME="/home/$(whoami)"
-
 INSTALLED_FROM=""
 NOTES=""
 
 if [[ $(echo "$0" | cut -c1-6) == "/snap/" ]]; then
+    # Fix snap issue with $HOME variable.
+    # This fix is ​​due to the fact that if dotload was
+    # installed with snap - it will use "~/snap/dotload/<revision>/" as $HOME
+    # That is, it means that dotload will install dotfiles in an isolated
+    # environment, and not in the real home folder
+    # To prevent such a bug, "/home/$(whoami)" will be used
+    # the whoami command returns the name of the current user
+    # For example: whoami will output "okineadev", then the home directory will be "/home/okineadev" and then everything will work fine
+    HOME="/home/$(whoami)"
+
     INSTALLED_FROM="snap"
 fi
 
@@ -21,7 +21,7 @@ if [[ $INSTALLED_FROM == "snap" ]]; then
     NOTES="Snap version "
 fi
 
-DOTFILES_DIR="$_HOME/.dotload"
+DOTFILES_DIR="$HOME/.dotload"
 
 hyperlink() {
     echo -e "\e]8;;$1\e\\$2\e]8;;\e\\"
@@ -283,14 +283,14 @@ dotload() {
     echo ""
     echo -e "[\e[1mSymlinking dotfiles to home directory\e[0m]\n"
     for file in $(git ls-files "$DOTFILES_DIR" | grep -E '^\.'); do
-        local dir=$(dirname "$_HOME/$file")
+        local dir=$(dirname "$HOME/$file")
 
         if [ ! -d "$dir" ]; then
             mkdir -p "$dir"
         fi
 
         printf "• Symlinking \e[1m%s\e[0m ..." "$file"
-        local output="$(ln -sf "$file" "$_HOME/$file")"
+        local output="$(ln -sf "$file" "$HOME/$file")"
         if [[ $output -eq 0 ]]; then
             tput cub 3
             printf "\e[1;32m✓\e[0m  \n"
