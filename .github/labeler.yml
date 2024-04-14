@@ -1,4 +1,0 @@
-docs: ['README.md', 'docs/*', 'dotload/man/*']
-workflows: '.github/workflows/*'
-feature:
- - head-branch: ['^feature', 'feature']

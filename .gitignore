@@ -1,16 +1,1 @@
-*.deb
-*.build
-*.buildinfo
-*.changes
-*.dsc
-*.tar.gz
-*.tar.xz
-*.snap
-
-dotload/debian/dotload
-dotload/debian/.debhelper
-dotload/debian/debhelper-build-stamp
-dotload/debian/files
-dotload/debian/changelog
-dotload/debian/dotload.debhelper.log
-dotload/debian/dotload.substvars
+node_modules
