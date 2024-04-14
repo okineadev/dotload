@@ -65,7 +65,7 @@
   Видалення:
 
   ```bash
-  sudo rm /bin/dotload && hash -r
+  sudo rm $PREFIX/bin/dotload && hash -r
   ```
 
 </details>
