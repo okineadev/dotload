@@ -76,8 +76,8 @@ You can install `dotload` using the following package managers:
   > The **snap** version of the package may not work with custom installation scripts
 
   ```bash
-  curl -O https://github.com/okineadev/dotload/releases/download/v1.0.2/dotload_1.0.2_all.snap
-  sudo snap install dotload_1.0.2_all.snap --dangerous
+  curl -LO https://github.com/okineadev/dotload/releases/download/v1.1.0/dotload_1.1.0_all.snap
+  sudo snap install dotload_1.1.0_all.snap --dangerous
   ```
 </details>
 

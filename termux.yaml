@@ -1,0 +1,21 @@
+control:
+    Package: dotload
+    Version: 1.1.0
+    Architecture: all
+    Maintainer: GithubNick <GithubNick@gmail.com>
+    Depends: git
+    Homepage: https://github.com/okineadev/dotload
+    Description: |-
+        This is the hello world package
+         It is just an example for termux-create-package
+         .
+         It is just prints 'Hello world'
+
+installation_prefix: /data/data/com.termux/files/usr
+
+data_files:
+    bin/dotload:
+        source: dotload/bin/dotload
+
+    share/man/man1/dotload.1:
+        source: dotload/man/dotload.1

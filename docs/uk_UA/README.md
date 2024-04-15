@@ -78,8 +78,8 @@
   > Версія пакету зі **snap** може не працювати з кастомними скриптами інсталяції
 
   ```bash
-  curl -O https://github.com/okineadev/dotload/releases/download/v1.0.2/dotload_1.0.2_all.snap
-  sudo snap install dotload_1.0.2_all.snap --dangerous
+  curl -LO https://github.com/okineadev/dotload/releases/download/v1.1.0/dotload_1.1.0_all.snap
+  sudo snap install dotload_1.1.0_all.snap --dangerous
   ```
 
 </details>
