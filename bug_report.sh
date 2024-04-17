@@ -54,7 +54,7 @@ DESCRIBE YOUR PROBLEM HERE!
 System info:
 
 **OS**: \`$(os_name)\`
-**Architecture**: \`$(uname -p)\`
+**Architecture**: \`$(uname -m)\`
 **Kernel**: \`$(uname -r)\`
 
 <details>
