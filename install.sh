@@ -12,9 +12,13 @@ else
     echo "" > "$LOG_FILE"
 fi
 
+normalize() {
+    echo -e "$1" | sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[mGK]//g"
+}
+
 write () {
     echo -e "\e[1;32m↪\e[0m $1"
-    echo -e "$1" >> "$LOG_FILE"
+    echo -e "$(normalize "$1")" >> "$LOG_FILE"
 }
 
 log() {
