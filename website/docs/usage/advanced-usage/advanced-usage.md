@@ -7,8 +7,7 @@ sidebar_position: 3
 dotload @<username> <branch_name>
 ```
 
-> [!TIP]
-> You can also use `-b` or `--branch` flags:
+> 💡 **Tip**: You can also use `-b` or `--branch` flags:
 
 ```bash
 dotload @<username> -b <branch_name>
