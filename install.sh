@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-echo ""
-
 TEMP_DIR="$PREFIX/tmp"
 LOG_FILE="$TEMP_DIR/dotload-installer.log"
 
@@ -16,7 +14,7 @@ normalize() {
     echo -e "$1" | sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[mGK]//g"
 }
 
-write () {
+write_log() {
     echo -e "\e[1;32m↪\e[0m $1"
     echo -e "$(normalize "$1")" >> "$LOG_FILE"
 }
@@ -26,20 +24,26 @@ log() {
     $command 2>&1 | tee -a "$LOG_FILE"
 }
 
+step () {
+    write_log "\e[30m[$1]\e[0m \e[1m$2\e[0m"
+}
+
 cd "$TEMP_DIR"
 
-write "\e[30m[1/3]\e[0m \e[1mDownloading executable\e[0m"
+echo ""
+
+step "1/3" "Downloading executable"
 log curl -LO --progress-bar https://github.com/okineadev/dotload/releases/latest/download/dotload
 log chmod +x dotload
 
-write "\e[30m[2/3]\e[0m \e[1mInstalling\e[0m"
+step "2/3" "Installing"
 if echo "$OSTYPE" | grep -qE '^linux-android.*'; then
     log cp dotload "$PREFIX/bin"
 else
-    log sudo ln dotload "$PREFIX/bin/dotload"
+    log sudo cp dotload "$PREFIX/bin/dotload"
 fi
 
-write "\e[30m[3/3]\e[0m \e[1mCleaning\e[0m"
+step "3/3" "Cleaning"
 log rm "$TEMP_DIR/dotload"
 
 echo -e "\n\e[1;32mDone!\e[0m"

@@ -14,10 +14,6 @@ if [[ $(echo "$0" | cut -c1-6) == "/snap/" ]]; then
     # For example: whoami will output "okineadev", then the home directory will be "/home/okineadev" and then everything will work fine
     HOME="/home/$(whoami)"
 
-    INSTALLED_FROM="snap"
-fi
-
-if [[ $INSTALLED_FROM == "snap" ]]; then
     NOTES="Snap version "
 fi
 
@@ -344,6 +340,7 @@ print_dotload_help() {
 # Check if the script is invoked with no arguments or with help option
 if [[ -z $1 || $1 == "--help" || $1 == "help" ]]; then
     print_usage
+
 # Check if the script is invoked with a username
 elif [[ $1 == @* ]]; then
     if [[ $2 == "--help" ]]; then
