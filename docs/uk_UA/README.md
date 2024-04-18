@@ -1,3 +1,5 @@
+<!-- markdownlint-disable no-inline-html first-line-h1 -->
+
 ![GitHub Release Date][github-release-date]
 ![GitHub Actions Workflow Status][github-actions-workflow-status]
 ![GitHub Issues or Pull Requests][github-issues]
@@ -32,7 +34,7 @@
 
 ## ℹ️ Про проект
 
-![Скріншот](../../public/screenshot.png)
+![Screenshot](../../public/screenshot.png)
 
 `dotload` працює шляхом клонування репозиторію `dotfiles` з **GitHub** вказаного користувача
 
@@ -44,7 +46,9 @@
 
 <details>
   <summary><b>apt (PPA) (Рекомендовано) ✅</b></summary>
-  <br>
+  <br/>
+
+  З цим методом ви отримуватимете подальші оновлення
 
   ```bash
   sudo add-apt-repository ppa:salumin/tools
@@ -58,24 +62,29 @@
   <summary><b>З install.sh</b></summary>
   <br/>
 
+  З цим методом, ви можете встановити dotload практично на **будь-якій системі**, в тому числі в Termux
+
+  📥 **Встановлення**:
+
   ```bash
   curl -sL https://raw.githubusercontent.com/okineadev/dotload/main/install.sh | bash
   ```
 
-  Видалення:
+  🗑️ **Видалення**:
 
   ```bash
   sudo rm $PREFIX/bin/dotload && hash -r
   ```
 
+  > ℹ️ Примітка: Якщо ви хочете видалити цей інструмент з **Termux**, вам потрібно виконати вище вказану команду без `sudo`
+
 </details>
 
 <details>
   <summary><b>Snap ⚠️</b></summary>
-  <br>
+  <br/>
 
-  > [!NOTE]
-  > Версія пакету зі **snap** може не працювати з кастомними скриптами інсталяції
+  > ⚠️ **УВАГА**: Версія пакету зі **snap** може не працювати з кастомними скриптами інсталяції
 
   ```bash
   curl -LO https://github.com/okineadev/dotload/releases/download/v1.1.0/dotload_1.1.0_all.snap
@@ -87,13 +96,13 @@
 Також ви можете запустити його без встановлення на **будь-якій** ОС за допомогою цієї команди:
 
 ```bash
-bash <(curl -sL https://github.com/okineadev/dotload/releases/latest/download/dotload) @<username>
+bash <(curl -sL https://github.com/okineadev/dotload/releases/latest/download/dotload) @username
 ```
 
 ## 🚀 Використання
 
 ```bash
-dotload @<username>
+dotload @username
 ```
 
 Де `username` - це **ім'я користувача GitHub**, чиї дотфайли ви хочете клонувати.
@@ -104,16 +113,16 @@ dotload @<username>
 ### Розширене використання
 
 ```bash
-dotload @<username> <branch_name>
+dotload @username branch_name
 ```
 
 > [!TIP]
 > Ви також можете використовувати прапорці `-b` або `--branch`:
 
 ```bash
-dotload @<username> -b <branch_name>
+dotload @username -b branch_name
 # Або
-dotload @<username> --branch <branch_name>
+dotload @username --branch branch_name
 ```
 
 Де `branch_name` - назва гілки сховища, яку ви хочете клонувати. Якщо не вказано, буде використано гілку за замовчуванням.
@@ -134,7 +143,7 @@ dotload --help
 man dotload
 ```
 
-### Користувацькі скрипти встановлення
+### Кастомні скрипти встановлення
 
 Ви також можете додати скрипт інсталяції до вашоро репозиторію `dotfiles`, щоб повністю автоматизувати встановлення та отримати більше можливостей
 
@@ -191,7 +200,7 @@ man dotload
 
 ## 📨 Контакти
 
-**Telegram:**[**@Okinea**][telegram-link]
+**Telegram:** [**@Okinea**][telegram-link]
 
 ## ❤️ Підтримка
 
@@ -204,7 +213,7 @@ man dotload
 - 🫙 **Банка для донатів**: <https://send.monobank.ua/jar/6rUVs4yasg>
 - 💎 **TON гаманець**: `UQBaBIBtKJpdwc4jKSGd70LZyQnEf-Nx5edzZlZAAGkHnZ7E`
 
-<hr>
+<hr/>
 
 <img src="https://img.shields.io/badge/-black?style=for-the-badge&logo=githubcopilot&logoColor=black&label=AI%20Generated&labelColor=white&color=black" style="border-radius:5px;box-shadow:0px 0px 9px black;border:solid 1px black" alt="AI Generated" title="Partially AI generated content">
 

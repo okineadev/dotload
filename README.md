@@ -1,3 +1,5 @@
+<!-- markdownlint-disable no-inline-html first-line-h1 -->
+
 ![GitHub Release Date][github-release-date]
 ![GitHub Actions Workflow Status][github-actions-workflow-status]
 ![GitHub Issues or Pull Requests][github-issues]
@@ -45,6 +47,8 @@ You can install `dotload` using the following package managers:
   <summary><b>apt (PPA) (Reccomended) ✅</b></summary>
   <br/>
 
+  You will also receive further updates with this method
+
   ```bash
   sudo add-apt-repository ppa:salumin/tools
   sudo apt update
@@ -56,15 +60,21 @@ You can install `dotload` using the following package managers:
   <summary><b>With install.sh</b></summary>
   <br/>
 
+  With this method, you can install dotload on almost **any system**, including Termux
+
+  📥 **Install**:
+
   ```bash
   curl -sL https://raw.githubusercontent.com/okineadev/dotload/main/install.sh | bash
   ```
 
-  Uninstall:
+  🗑️ **Uninstall**:
 
   ```bash
   sudo rm $PREFIX/bin/dotload && hash -r
   ```
+
+  > ℹ️ Note: If you want to remove this tool from **Termux**, you need to run the above command without `sudo`
 
 </details>
 
@@ -72,25 +82,29 @@ You can install `dotload` using the following package managers:
   <summary><b>Snap ⚠️</b></summary>
   <br/>
 
-  > [!WARNING]
-  > The **snap** version of the package may not work with custom installation scripts
+  > ⚠️ **WARNING**: The **snap** version of the package may not work with custom installation scripts
 
   ```bash
   curl -LO https://github.com/okineadev/dotload/releases/download/v1.1.0/dotload_1.1.0_all.snap
   sudo snap install dotload_1.1.0_all.snap --dangerous
   ```
+
+  This snap pack is for gourmets only :)
+
+  I do not recommend using it
+
 </details>
 
 Or you can run without installation on **any** OS with this command:
 
 ```bash
-bash <(curl -sL https://github.com/okineadev/dotload/releases/latest/download/dotload) @<username>
+bash <(curl -sL https://github.com/okineadev/dotload/releases/latest/download/dotload) @username
 ```
 
 ## 🚀 Usage
 
 ```bash
-dotload @<username>
+dotload @username
 ```
 
 Where `username` is the **GitHub username** whose dotfiles you want to clone.
@@ -101,16 +115,16 @@ Where `username` is the **GitHub username** whose dotfiles you want to clone.
 ### Advanced Usage
 
 ```bash
-dotload @<username> <branch_name>
+dotload @username branch_name
 ```
 
 > [!TIP]
 > You can also use `-b` or `--branch` flags:
 
 ```bash
-dotload @<username> -b <branch_name>
+dotload @username -b branch_name
 # Or
-dotload @<username> --branch <branch_name>
+dotload @username --branch branch_name
 ```
 
 Where `branch_name` is the branch of the repository you want to clone. If not specified, the default branch is used.
