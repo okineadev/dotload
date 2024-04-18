@@ -14,3 +14,5 @@ dotload/debian/files
 dotload/debian/changelog
 dotload/debian/dotload.debhelper.log
 dotload/debian/dotload.substvars
+
+.vscode
