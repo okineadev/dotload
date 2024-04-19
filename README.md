@@ -39,6 +39,16 @@
 
 This tool was created to make it as **easy as possible** to install dotfiles, required development tools (such as **nodejs**, **php**, **etc**.) and other packages.
 
+### 🤔 How does it work?
+This tool makes symbolic links to your dotfiles from `~/.dotload` to `$HOME` directory
+
+It can also make symbolic links to folders (including subfolders) whose name starts with a dot, for example `.configs`
+
+> [!WARNING]
+> Dotfiles with identical names will be inevitably overwritten with new ones from your repository!
+
+For example, if you have a file `~/.bashrc` on your computer and in the repository, it will be overwritten with a new one from the repository, before cloning them, make sure that they are yours or you have made a backup of previous configurations
+
 ## ⚙️ Installation
 
 You can install `dotload` using the following package managers:
