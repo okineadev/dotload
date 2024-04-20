@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 
-INSTALLED_FROM=""
+# shellcheck disable=SC2164
+# shellcheck disable=SC2155
+# shellcheck disable=SC2181
+# shellcheck disable=SC2236
+
+DOTFILES_DIR="$HOME/.dotload"
 NOTES=""
 
 if [[ $(echo "$0" | cut -c1-6) == "/snap/" ]]; then
@@ -16,8 +21,6 @@ if [[ $(echo "$0" | cut -c1-6) == "/snap/" ]]; then
 
     NOTES="Snap version "
 fi
-
-DOTFILES_DIR="$HOME/.dotload"
 
 hyperlink() {
     echo -e "\e]8;;$1\e\\$2\e]8;;\e\\"
@@ -124,6 +127,41 @@ read_declaration() {
     echo "$value"
 }
 
+prompt() {
+    local attempts=0
+    local question="$1"
+
+    while true; do
+        if ((attempts == 4)); then
+            echo -e "Too many invalid responses. Exiting program.\n"
+            exit 1
+        fi
+
+        # shellcheck disable=SC2059
+        printf "$question \e[1m(Y/n)\e[0m: "
+        read -r response
+        if echo "$response" | grep -Eiq "^(y|yes)$"; then
+            return 1
+
+        elif echo "$response" | grep -Eiq "^(n|no)$"; then
+            # if [[ "$optional" == "optional" ]]; then
+            #     return 1
+            # else
+            #     return 0
+            # fi
+            return 0
+
+        else
+            if [ "$attempts" -lt 3 ]; then
+                echo -e "\n\e[1;31mInvalid response\e[0m. Please enter '\e[1my\e[0m' or '\e[1mn\e[0m'."
+                sleep "1"
+            fi
+            ((attempts++))
+        fi
+    done
+    unset attempts
+}
+
 # Function to print informational messages
 print_info() {
     echo -e "\e[1;32mⓘ  INFO:\e[0m $1"
@@ -202,11 +240,14 @@ dotload() {
         echo -e "╰ Commit hash: $hash\n"
         unset hash
 
+        # shellcheck disable=SC2086
         git clone "$repo_url" "$DOTFILES_DIR" --quiet --depth=1 $branch >/dev/null 2>&1
     fi
 
     local custom_install_script
 
+    # FIXME:
+    # shellcheck disable=SC2010
     custom_install_script=$(ls "$DOTFILES_DIR" |
         grep -E '^(((script\/)?(bootstrap|setup)|install)(\.sh|))$' |
         head -n 1)
@@ -226,58 +267,43 @@ dotload() {
     # Run the custom install script if available
     if [ -n "$custom_install_script" ]; then
         print_info "Custom install script available.\a"
-        local attempts=0
-        while true; do
-            if ((attempts == 4)); then
-                echo "Too many invalid responses. Exiting program."
-                echo ""
-                exit 1
-            fi
 
-            printf "↪  Do you want to execute the install script?%s \e[1m(Y/n)\e[0m: " "$script_is_optional"
-            read -r response
-            if echo "$response" | grep -Eiq "^(y|yes)$"; then
-                echo -e "Running install script ...\n"
-                local current_dir=$(pwd)
-                cd "$DOTFILES_DIR"
+        prompt "↪  Do you want to execute the install script?$script_is_optional"
+        if [[ $? -eq 1 ]]; then
+            echo -e "Running install script ...\n"
+            local current_dir=$(pwd)
+            cd "$DOTFILES_DIR"
 
-                bash "$custom_install_script"
+            bash "$custom_install_script"
 
-                cd "$current_dir"
-                unset current_dir
+            cd "$current_dir"
+            unset current_dir
 
-                echo ""
-                echo -e "\e[1;32mDone!\e[0m"
-                echo ""
+            echo ""
+            echo -e "\e[1;32mDone!\e[0m"
+            exit 0
+        else
+            echo -e "Canceled running of install script.\n"
+            if [[ ! -n $script_is_optional ]]; then
                 exit 0
-
-            elif echo "$response" | grep -Eiq "^(n|no)$"; then
-                echo "Canceled running of install script."
-
-                if [ -n "$script_is_optional" ]; then
-                    break
-                else
-                    echo ""
-                    exit 0
-                fi
-
-            else
-                if [ "$attempts" -lt 3 ]; then
-                    echo -e "\n\e[1;31mInvalid response\e[0m. Please enter '\e[1my\e[0m' or '\e[1mn\e[0m'."
-                    sleep "1"
-                fi
-                ((attempts++))
             fi
-        done
-        unset attempts
+        fi
     fi
+
+    echo -e "[\e[1mSymlinking dotfiles from ~/.dotload to \$HOME directory\e[0m]\n"
+
+    prompt "↪  You really want to symlink your dotfiles to a \e[1m\$HOME\e[0m directory?"
+    if [[ $? -eq 0 ]]; then
+        echo "Action cancelled."
+        exit 0
+    fi
+
+    echo ""
 
     # Symlink new dotfiles
     local current_dir=$(pwd)
     cd "$DOTFILES_DIR"
 
-    echo ""
-    echo -e "[\e[1mSymlinking dotfiles to home directory\e[0m]\n"
     for file in $(git ls-files "$DOTFILES_DIR" | grep -E '^\.'); do
         local dir=$(dirname "$HOME/$file")
 
@@ -304,7 +330,6 @@ dotload() {
 
     echo ""
     echo -e "\e[1;32mDone!\e[0m"
-    echo ""
 }
 
 # Function to print the usage information for the dotload script
