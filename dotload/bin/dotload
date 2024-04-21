@@ -144,11 +144,6 @@ prompt() {
             return 1
 
         elif echo "$response" | grep -Eiq "^(n|no)$"; then
-            # if [[ "$optional" == "optional" ]]; then
-            #     return 1
-            # else
-            #     return 0
-            # fi
             return 0
 
         else
@@ -292,7 +287,7 @@ dotload() {
 
     echo -e "[\e[1mSymlinking dotfiles from ~/.dotload to \$HOME directory\e[0m]\n"
 
-    prompt "↪  You really want to symlink your dotfiles to a \e[1m\$HOME\e[0m directory?"
+    prompt "↪  You want to symlink your dotfiles to a \e[1m\$HOME\e[0m directory?"
     if [[ $? -eq 0 ]]; then
         echo "Action cancelled."
         exit 0
@@ -312,7 +307,7 @@ dotload() {
         fi
 
         printf "• Symlinking \e[1m%s\e[0m ..." "$file"
-        local output="$(ln -sf "$file" "$HOME/$file")"
+        local output="$(ln -sf "$DOTFILES_DIR/$file" "$HOME/$file")"
         if [[ $output -eq 0 ]]; then
             tput cub 3
             printf "\e[1;32m✓\e[0m  \n"
