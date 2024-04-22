@@ -88,7 +88,8 @@ You can install `dotload` using the following package managers:
 
 </details>
 
-<details>
+<!-- Temporary closed because useless -->
+<!-- <details>
   <summary><b>Snap ⚠️</b></summary>
   <br/>
 
@@ -103,7 +104,7 @@ You can install `dotload` using the following package managers:
 
   I do not recommend using it
 
-</details>
+</details> -->
 
 Or you can run without installation on **any** OS with this command:
 
@@ -115,9 +116,12 @@ bash <(curl -sL https://github.com/okineadev/dotload/releases/latest/download/do
 
 ```bash
 dotload @username
+dotload https://github.com/username/dotfiles.git
 ```
 
 Where `username` is the **GitHub username** whose dotfiles you want to clone.
+
+You can also use URLs of repositories such as **GitLab**, **Codeberg**, etc.
 
 > [!WARNING]
 > The username cannot contain emojis, spaces or other non-standard characters
@@ -132,14 +136,11 @@ dotload @username branch_name
 > You can also use `-b` or `--branch` flags:
 
 ```bash
-dotload @username -b branch_name
-# Or
-dotload @username --branch branch_name
+dotload @<username> [--branch branch_name | -b branch_name]
+dotload <repo_url> [--branch branch_name | -b branch_name]
 ```
 
-Where `branch_name` is the branch of the repository you want to clone. If not specified, the default branch is used.
-
-This can be useful if you have multiple machine usage scenarios
+Where `branch_name` is the branch of the repository you want to clone. If not specified, the default branch is used. This can be useful if you have multiple machine usage scenarios
 
 ---
 
@@ -180,7 +181,6 @@ or make it optional in `dotload.conf`, for this read the [**dotload.conf documen
 
 ## 🛣️ Roadmap
 
-- [x] Solve the problem using the tool without installing ([**#2**](https://github.com/okineadev/dotload/issues/2))
 - [ ] Add multilingual **README.md** support
   - [x] 🇺🇦 Ukrainian
   - [ ] 🇵🇱 Polish

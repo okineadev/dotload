@@ -344,18 +344,22 @@ dotload() {
     echo -e "\e[1;32mDone!\e[0m"
 }
 
-# Function to print the usage information for the dotload script
 print_usage() {
-    echo "Usage: dotload [@username] [branch]"
+    echo "Usage: dotload [@username | <repo_url>] [branch]"
     echo ""
     echo "Options:"
     echo "  @username   The username of the GitHub user whose dotfiles you want to clone."
+    echo "  <repo_url>  The URL of the git repository from which you want to clone dotfiles."
+    echo "  branch      (Optional) The branch of the repository you want to clone. If not specified, the default branch is used."
     echo ""
     echo "Examples:"
     echo "  dotload @username"
     echo "  dotload @username dev-branch"
+    echo "  dotload https://github.com/username/dotfiles"
+    echo "  dotload https://github.com/username/dotfiles dev-branch"
     echo ""
 }
+
 
 # Function to print the help information for the dotload script
 print_dotload_help() {
@@ -363,14 +367,18 @@ print_dotload_help() {
     echo ""
     echo "Usage:"
     echo "  dotload @<username> [--branch branch_name | -b branch_name]"
+    echo "  dotload <repo_url> [--branch branch_name | -b branch_name]"
     echo ""
     echo "Options:"
     echo "  @<username>        The username of the GitHub user whose dotfiles you want to clone."
-    echo "  [branch_name]      The branch of the repository you want to clone. If not specified, the default branch is used."
+    echo "  <repo_url>         The URL of the git repository from which you want to clone dotfiles."
+    echo "  [branch_name]      (Optional) The branch of the repository you want to clone. If not specified, the default branch is used."
     echo ""
     echo "Examples:"
     echo "  dotload @username"
     echo "  dotload @username dev-branch"
+    echo "  dotload https://github.com/username/dotfiles.git"
+    echo "  dotload https://github.com/username/dotfiles.git --branch main"
     echo ""
 }
 
