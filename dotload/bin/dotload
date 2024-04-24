@@ -140,10 +140,10 @@ prompt() {
         # shellcheck disable=SC2059
         printf "$question \e[1m(Y/n)\e[0m: "
         read -r response
-        if echo "$response" | grep -Eiq "^(y|yes)$"; then
+        if echo "$response" | grep -Eiq '^(y|yes)$'; then
             return 1
 
-        elif echo "$response" | grep -Eiq "^(n|no)$"; then
+        elif echo "$response" | grep -Eiq '^(n|no)$'; then
             return 0
 
         else
@@ -262,7 +262,7 @@ dotload() {
     # FIXME:
     # shellcheck disable=SC2010
     custom_install_script=$(ls "$DOTFILES_DIR" |
-        grep -E '^(((script\/)?(bootstrap|setup)|install)(\.sh|))$' |
+        grep -E '^(((script/)?(bootstrap|setup)|install)(\.sh|))$' |
         head -n 1)
 
     if [ -f "$DOTFILES_DIR/dotload.conf" ]; then
