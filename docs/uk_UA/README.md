@@ -18,7 +18,7 @@
   <p align="center">
     <p>
     <b>dotload</b> - це <b>простий</b>, <b>інтуїтивний</b> та <b>швидкий</b>⚡ інструмент для встановлення конфігурацій (дотфайлів) та інших необхідних інструментів на будь-яку машину!</p>
-    <a href="#%EF%B8%8F-installation"><b>Встановлення</b></a>
+    <a href="#%EF%B8%8F-Встановлення"><b>Встановлення</b></a>
     ·
     <a href="https://github.com/okineadev/dotload/issues/new?labels=bug&template=bug_report.md"><b>Повідомити про помилку</b></a>
     ·
