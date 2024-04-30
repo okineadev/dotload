@@ -1,0 +1,38 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/ubuntu
+{
+  "name": "Ubuntu",
+  // Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+  "image": "mcr.microsoft.com/devcontainers/base:jammy",
+  "features": {
+    "ghcr.io/devcontainers/features/github-cli:1": {},
+    "ghcr.io/eitsupi/devcontainer-features/go-task:1": {},
+    "ghcr.io/jungaretti/features/make:1": {}
+  },
+
+  "privileged": true,
+
+  "onCreateCommand": {
+    "update-apt-packages": "sudo apt update && sudo apt upgrade -y",
+    "install-apt-packages": "sudo apt install nala devscripts debhelper snapd -y",
+    "install-snapcraft": "sudo snap install snapcraft --classic && sudo usermod -aG lxd $USER && sudo snap run lxd init --auto && sudo snap run lxd waitready"
+  },
+
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "resmon.show.battery": false,
+        "resmon.show.cpufreq": false
+      },
+      "extensions": [
+        "EditorConfig.EditorConfig",
+        "DavidAnson.vscode-markdownlint",
+        "mads-hartmann.bash-ide-vscode",
+        "docsmsft.docs-yaml",
+        "shardulm94.trailing-spaces",
+        "me-dutour-mathieu.vscode-github-actions",
+        "redhat.vscode-yaml"
+      ]
+    }
+  }
+}
