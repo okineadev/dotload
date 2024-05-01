@@ -14,7 +14,7 @@
 
   "onCreateCommand": {
     "update-apt-packages": "sudo apt update && sudo apt upgrade -y",
-    "install-apt-packages": "sudo apt install nala devscripts debhelper -y"
+    "install-apt-packages": "sudo apt install devscripts debhelper -y"
   },
 
   "customizations": {
