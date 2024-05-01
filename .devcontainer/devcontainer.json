@@ -14,10 +14,7 @@
 
   "onCreateCommand": {
     "update-apt-packages": "sudo apt update && sudo apt upgrade -y",
-    "set-path": "echo 'export PATH=/snap/bin:$PATH' >> ~/.bashrc",
-    "install-apt-packages": "sudo apt install nala devscripts debhelper snapd squashfuse fuse -y",
-    "enable-snapd": "sudo service snapd start",
-    "install-snapcraft": "sudo snap install snapcraft --classic && sudo usermod -aG lxd $USER && sudo snap run lxd init --auto && sudo snap run lxd waitready"
+    "install-apt-packages": "sudo apt install nala devscripts debhelper -y"
   },
 
   "customizations": {
