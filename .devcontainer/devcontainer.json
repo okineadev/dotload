@@ -27,7 +27,8 @@
         "docsmsft.docs-yaml",
         "shardulm94.trailing-spaces",
         "me-dutour-mathieu.vscode-github-actions",
-        "redhat.vscode-yaml"
+        "redhat.vscode-yaml",
+        "bierner.markdown-checkbox"
       ]
     }
   }
