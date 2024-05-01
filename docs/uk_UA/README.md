@@ -190,7 +190,15 @@ man dotload
 
 ## 🤝 Внески
 
-Внески - це те, що робить спільноту з відкритим вихідним кодом таким чудовим місцем для навчання, натхнення та творчості. Будь-який ваш внесок дуже цінний.
+Внески - це те, що робить спільноту з відкритим вихідним кодом таким чудовим місцем для навчання, натхнення та творчості. Будь-який ваш внесок **дуже цінний**.
+
+Ви можете моментально розпочати розробку в **GitHub Codespaces**
+
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/okineadev/dotload?quickstart=1)
+
+Цей репозиторій містить ⚡ **prebuilds**, які дозволяють **пропустити** встановлення пакетів і інструментів
+
+Або скористайтеся звичайним способом на комп’ютері:
 
 1. Форкніть проект
 2. Створіть гілку з вашими змінами (`git checkout -b feature/AmazingFeature`)
@@ -222,12 +230,6 @@ man dotload
 - 🍩 **Donatello**: <https://donatello.to/okineadev>
 - 🫙 **Банка для донатів**: <https://send.monobank.ua/jar/6rUVs4yasg>
 - 💎 **TON гаманець**: `UQBaBIBtKJpdwc4jKSGd70LZyQnEf-Nx5edzZlZAAGkHnZ7E`
-
-<hr/>
-
-<img src="https://img.shields.io/badge/-black?style=for-the-badge&logo=githubcopilot&logoColor=black&label=AI%20Generated&labelColor=white&color=black" style="border-radius:5px;box-shadow:0px 0px 9px black;border:solid 1px black" alt="AI Generated" title="Partially AI generated content">
-
-<sub><i>Код та контент були частково згенеровані ШІ.</i></sub>
 
 [github-release-date]: https://img.shields.io/github/release-date/okineadev/dotload
 [github-actions-workflow-status]: https://img.shields.io/github/actions/workflow/status/okineadev/dotload/release.yml
