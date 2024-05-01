@@ -13,8 +13,7 @@
   "privileged": true,
 
   "onCreateCommand": {
-    "update-apt-packages": "sudo apt update && export DEBIAN_FRONTEND=noninteractive && sudo apt upgrade -y",
-    "install-apt-packages": "sudo apt install devscripts debhelper -y"
+    "update-apt-packages": "sudo apt update && export DEBIAN_FRONTEND=noninteractive && sudo apt upgrade -y"
   },
 
   "customizations": {
