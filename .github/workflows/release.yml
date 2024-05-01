@@ -47,14 +47,14 @@ jobs:
         release_version=$(echo "$tag" | sed 's/v//g')
         changes="You can view the changes at this link - https://github.com/okineadev/dotload/releases/tag/$tag"
 
-        make deb-package \
-          WORKFLOW="true" \
-          VERSION="$release_version" \
-          FULLNAME="$FULLNAME" \
-          EMAIL="$EMAIL" \
-          CHANGES="$changes" \
-          PASSPHRASE="${{ secrets.PPA_GPG_KEY_PASSPHRASE }}" \
-          KEY="$key"
+        make deb-package ARGS="\
+          --workflow \
+          --version $release_version \
+          --fullname $FULLNAME \
+          --email $EMAIL \
+          --changes $changes \
+          --passphrase ${{ secrets.PPA_GPG_KEY_PASSPHRASE }} \
+          --key $key"
 
     - name: 🛠️ Build Snap package
       run: |
@@ -71,9 +71,7 @@ jobs:
         release_version=$(echo "$tag" | sed 's/v//g')
 
         # Build snap package
-        make snap-package \
-          WORKFLOW="true" \
-          VERSION="$release_version"
+        make snap-package ARGS="--workflow --version $release_version"
 
     - name: ⬆️ Upload files to release
       uses: softprops/action-gh-release@v1
@@ -96,3 +94,7 @@ jobs:
         # Login
         export SNAPCRAFT_STORE_CREDENTIALS="${{ secrets.SNAPCRAFT_CREDENTIALS }}"
         snapcraft upload --release=stable dotload_*_all.snap
+
+    - name: 🧹 Clean
+      run: |
+        make clean
