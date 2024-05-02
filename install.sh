@@ -69,7 +69,7 @@ step "2/3" "Installing"
 if ! command -v git >/dev/null; then
     step "2.1/3" "Installing git"
 
-    if ! -n "$pkgmgr"; then
+    if [[ ! -n "$pkgmgr" ]]; then
         echo "Please install git manually."
         exit 1
     else
