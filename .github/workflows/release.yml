@@ -7,6 +7,8 @@ on:
       - published
 
 permissions:
+  id-token: write
+  attestations: write
   contents: write
 
 jobs:
@@ -72,6 +74,11 @@ jobs:
 
         # Build snap package
         make snap-package ARGS="--workflow --version $release_version"
+
+    - name: ✅ Attest artifact
+      uses: github-early-access/generate-build-provenance@main
+      with:
+        subject-path: dotload 'dotload_*.deb' 'dotload_*.snap'
 
     - name: ⬆️ Upload files to release
       uses: softprops/action-gh-release@v1
