@@ -1,9 +1,8 @@
 <!-- markdownlint-disable no-inline-html first-line-h1 -->
 
-![GitHub Release Date][github-release-date]
-![GitHub Actions Workflow Status][github-actions-workflow-status]
-![GitHub Issues or Pull Requests][github-issues]
-![GitHub License][github-license]
+[![GitHub Release Date][github-release-date]][github-release-page]
+[![GitHub workflow status][github-workflow-status]][github-workflow-runs]
+[![GitHub License][github-license]](LICENSE)
 ![Made with love][made-with-love]
 ![GitHub Repo stars][github-stars]
 
@@ -56,7 +55,7 @@
 Ви можете встановити `dotload` за допомогою цих пакетних менеджерів:
 
 <details>
-  <summary><b>apt (PPA) (Рекомендовано) ✅</b></summary>
+  <summary><b>apt (PPA)</b></summary>
   <br/>
 
   З цим методом ви отримуватимете подальші оновлення
@@ -70,7 +69,7 @@
 </details>
 
 <details>
-  <summary><b>З install.sh</b></summary>
+  <summary><b>З install.sh (Рекомендовано) ✅</b></summary>
   <br/>
 
   З цим методом, ви можете встановити dotload практично на **будь-якій системі**, в тому числі в Termux
@@ -91,19 +90,57 @@
 
 </details>
 
-<!-- Temporary closed because useless -->
-<!-- <details>
-  <summary><b>Snap ⚠️</b></summary>
+<details>
+  <summary><b>З джерел (цього репозиторію)</b></summary>
   <br/>
 
-  > ⚠️ **УВАГА**: Версія пакету зі **snap** може не працювати з кастомними скриптами інсталяції
+  З цим методом ви можете з легкістю модифікувати встановлення, та бути впевненим в безпеці.
+
+  Кроки для встановлення з джерел:
+
+  1. Клонуйте репозиторій
 
   ```bash
-  curl -LO https://github.com/okineadev/dotload/releases/download/v1.1.0/dotload_1.1.0_all.snap
-  sudo snap install dotload_1.1.0_all.snap --dangerous
+  git clone https://github.com/okineadev/dotload.git --depth=1
   ```
 
-</details> -->
+  2. Перейдіть в папку проекту
+
+  ```bash
+  cd dotload
+  ```
+
+  3. Встановіть інструменти
+
+  Якщо у вас не встановлений `make`, вам потрібно його встановити:
+
+  ```bash
+  sudo apt install make
+  ```
+
+  Також наявна підтримка [**task**](https://taskfile.dev/).
+
+  📥 **Встановлення**:
+
+  ```bash
+  make install
+  ```
+
+  > 💡 Порада: якщо ви надаєте перевагу використанню сучаснішого [**task**](https://taskfile.dev/) замість [**GNU make**](https://www.gnu.org/software/make/), можете скористатись цією командою:
+
+  ```bash
+  task install
+  ```
+
+  🗑️ **Видалення**:
+
+  ```bash
+  make uninstall
+  # Або
+  task uninstall
+  ```
+
+</details>
 
 Також ви можете запустити його без встановлення на **будь-якій** ОС за допомогою цієї команди:
 
@@ -183,6 +220,7 @@ man dotload
   - [ ] 🇵🇱 Польська
   - [ ] 🇩🇪 Німецька
 - [ ] Написати інструкцію для розробників (по збірці пакету)
+- [ ] Переписати функцію створення **deb-пакетів** для підтримки різних версій [**Ubuntu**](https://ubuntu.com/) - в процесі 🚧
 - [ ] Додати варіанти встановлення, такі як **Snap**, **AUR**, **RPM**
   - [x] **Snap**
   - [ ] **AUR**
@@ -192,11 +230,11 @@ man dotload
 
 Внески - це те, що робить спільноту з відкритим вихідним кодом таким чудовим місцем для навчання, натхнення та творчості. Будь-який ваш внесок **дуже цінний**.
 
-Ви можете моментально розпочати розробку в **GitHub Codespaces**
+Ви можете моментально розпочати розробку в [**GitHub Codespaces**][codespaces-link]
 
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/okineadev/dotload?quickstart=1)
 
-Цей репозиторій містить ⚡ **prebuilds**, які дозволяють **пропустити** встановлення пакетів і інструментів
+Цей репозиторій містить ⚡[**prebuilds**][about-prebuilds], які дозволяють **пропустити** встановлення пакетів і інструментів.
 
 Або скористайтеся звичайним способом на комп’ютері:
 
@@ -232,10 +270,13 @@ man dotload
 - 💎 **TON гаманець**: `UQBaBIBtKJpdwc4jKSGd70LZyQnEf-Nx5edzZlZAAGkHnZ7E`
 
 [github-release-date]: https://img.shields.io/github/release-date/okineadev/dotload
-[github-actions-workflow-status]: https://img.shields.io/github/actions/workflow/status/okineadev/dotload/release.yml
-[github-issues]: https://img.shields.io/github/issues/okineadev/dotload?color=shine-green
+[github-release-page]: https://github.com/okineadev/dotload/releases/latest
+[github-workflow-status]: https://github.com/okineadev/dotload/actions/workflows/release.yml/badge.svg
+[github-workflow-runs]: https://github.com/okineadev/dotload/actions/workflows/release.yml
 [github-license]: https://img.shields.io/github/license/okineadev/dotload
 [made-with-love]: https://img.shields.io/badge/made_with-%E2%9D%A4%EF%B8%8F-white
 [github-stars]: https://img.shields.io/github/stars/okineadev/dotload
+[codespaces-link]: https://github.com/features/codespaces
+[about-prebuilds]: https://docs.github.com/en/codespaces/prebuilding-your-codespaces/about-github-codespaces-prebuilds
 [telegram-link]: https://t.me/okinea 'Telegram link'
 [mit-license-link]: https://opensource.org/license/MIT

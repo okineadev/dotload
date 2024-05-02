@@ -1,9 +1,8 @@
 <!-- markdownlint-disable no-inline-html first-line-h1 -->
 
-![GitHub Release Date][github-release-date]
-![GitHub Actions Workflow Status][github-actions-workflow-status]
-![GitHub Issues or Pull Requests][github-issues]
-![GitHub License][github-license]
+[![GitHub Release Date][github-release-date]][github-release-page]
+[![GitHub workflow status][github-workflow-status]][github-workflow-runs]
+[![GitHub License][github-license]](LICENSE)
 ![Made with love][made-with-love]
 ![GitHub Repo stars][github-stars]
 
@@ -54,7 +53,7 @@ For example, if you have a file `~/.bashrc` on your computer and in the reposito
 You can install `dotload` using the following package managers:
 
 <details>
-  <summary><b>apt (PPA) (Reccomended) ✅</b></summary>
+  <summary><b>apt (PPA)</b></summary>
   <br/>
 
   You will also receive further updates with this method
@@ -64,10 +63,11 @@ You can install `dotload` using the following package managers:
   sudo apt update
   sudo apt install dotload
   ```
+
 </details>
 
 <details>
-  <summary><b>With install.sh</b></summary>
+  <summary><b>With install.sh (Reccomended) ✅</b></summary>
   <br/>
 
   With this method, you can install dotload on almost **any system**, including Termux
@@ -88,23 +88,57 @@ You can install `dotload` using the following package managers:
 
 </details>
 
-<!-- Temporary closed because useless -->
-<!-- <details>
-  <summary><b>Snap ⚠️</b></summary>
+<details>
+  <summary><b>From sources</b></summary>
   <br/>
 
-  > ⚠️ **WARNING**: The **snap** version of the package may not work with custom installation scripts
+  With this method, you can easily modify the installation and be sure of security.
+
+  Steps to install from sources:
+
+  1. Clone the repository
 
   ```bash
-  curl -LO https://github.com/okineadev/dotload/releases/download/v1.1.0/dotload_1.1.0_all.snap
-  sudo snap install dotload_1.1.0_all.snap --dangerous
+  git clone https://github.com/okineadev/dotload.git --depth=1
   ```
 
-  This snap pack is for gourmets only :)
+  2. Go to the project folder
 
-  I do not recommend using it
+  ```bash
+  cd dotload
+  ```
 
-</details> -->
+  3. Install the tools
+
+  If you don't have `make' installed, you need to install it:
+
+  ```bash
+  sudo apt install make
+  ```
+
+  There is also support for [**task**](https://taskfile.dev/).
+
+  📥 **Install**:
+
+  ```bash
+  make install
+  ```
+
+  > 💡 Tip: If you prefer to use the more modern [**task**](https://taskfile.dev/) instead of [**GNU make**](https://www.gnu.org/software/make/) , you can use this command:
+
+  ```bash
+  task install
+  ```
+
+  🗑️ **Uninstall**:
+
+  ```bash
+  make uninstall
+  # Or
+  task uninstall
+  ```
+
+</details>
 
 Or you can run without installation on **any** OS with this command:
 
@@ -186,6 +220,7 @@ or make it optional in `dotload.conf`, for this read the [**dotload.conf documen
   - [ ] 🇵🇱 Polish
   - [ ] 🇩🇪 German
 - [ ] Write instructions for developers (package assembly)
+- [ ] Rewrite the function of creating **deb-packages** to support different versions of [**Ubuntu**](https://ubuntu.com/) - in progress 🚧
 - [ ] Add installation options such as **Snap**, **AUR**, **RPM**
   - [x] **Snap**
   - [ ] **AUR**
@@ -195,11 +230,11 @@ or make it optional in `dotload.conf`, for this read the [**dotload.conf documen
 
 Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
-You can start developing on **GitHub Codespaces** right away
+You can start developing on [**GitHub Codespaces**][codespaces-link] right away
 
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/okineadev/dotload?quickstart=1)
 
-This repository has ⚡ **prebuilds** that allow you to **skip** installing packages and tools
+This repository has ⚡[**prebuilds**][about-prebuilds] that allow you to **skip** installing packages and tools.
 
 Or use the usual method on your computer:
 
@@ -236,10 +271,13 @@ Here are the details for transfers:
 - 💎 **TON wallet**: `UQBaBIBtKJpdwc4jKSGd70LZyQnEf-Nx5edzZlZAAGkHnZ7E`
 
 [github-release-date]: https://img.shields.io/github/release-date/okineadev/dotload
-[github-actions-workflow-status]: https://img.shields.io/github/actions/workflow/status/okineadev/dotload/release.yml
-[github-issues]: https://img.shields.io/github/issues/okineadev/dotload?color=shine-green
+[github-release-page]: https://github.com/okineadev/dotload/releases/latest
+[github-workflow-status]: https://github.com/okineadev/dotload/actions/workflows/release.yml/badge.svg
+[github-workflow-runs]: https://github.com/okineadev/dotload/actions/workflows/release.yml
 [github-license]: https://img.shields.io/github/license/okineadev/dotload
 [made-with-love]: https://img.shields.io/badge/made_with-%E2%9D%A4%EF%B8%8F-white
 [github-stars]: https://img.shields.io/github/stars/okineadev/dotload
+[codespaces-link]: https://github.com/features/codespaces
+[about-prebuilds]: https://docs.github.com/en/codespaces/prebuilding-your-codespaces/about-github-codespaces-prebuilds
 [telegram-link]: https://t.me/okinea 'Telegram link'
 [mit-license-link]: https://opensource.org/license/MIT
