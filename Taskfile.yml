@@ -5,7 +5,7 @@ tasks:
     cmd: ./scripts/clean.sh
 
   install:
-    cmd: ./install.sh
+    cmd: ./scripts/install-from-source.sh
 
   uninstall:
     cmd: sudo rm "${PREFIX}/bin/dotload"

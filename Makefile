@@ -8,7 +8,7 @@ clean:
 
 # Installing the tool
 install:
-	./install.sh
+	./scripts/install-from-source.sh
 
 # Remove the tool
 uninstall:
