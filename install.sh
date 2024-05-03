@@ -17,13 +17,18 @@ pkgmgr=""
 update="update"
 install="install -y"
 
-if echo "$OSTYPE" | grep -qE '^linux-gnu.*'; then
+if echo "$OSTYPE" | grep -qE '^(linux-gnu|msys).*'; then
     if [ -f '/etc/debian_version' ]; then
         pkgmgr="apt"
-    elif [ -f '/etc/arch-release' ]; then
+    elif [[ -f '/etc/arch-release' || ( $(echo "$OSTYPE") =~ ^msys.*$ ) ]]; then
         pkgmgr="pacman"
         install="-Sy --noconfirm"
         update="-Sy"
+
+        if echo "$OSTYPE" | grep -qE '^msys.*'; then
+            # Because `sudo` in msys shell (on Windows™) are useless
+            sudo=""
+        fi
     fi
 
 elif echo "$OSTYPE" | grep -qE '^darwin.*'; then
@@ -70,7 +75,7 @@ if ! command -v git >/dev/null; then
     step "2.1/3" "Installing git"
 
     if [[ ! -n "$pkgmgr" ]]; then
-        echo "Please install git manually."
+        echo -e "$pkgmgr in not defined\nPlease install \e[1mgit\e[0m manually."
         exit 1
     else
         if [[ "$pkgmgr" == "brew" ]]; then
