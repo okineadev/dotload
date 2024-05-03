@@ -12,6 +12,7 @@ else
     echo "" > "$LOG_FILE"
 fi
 
+prefix="$PREFIX"
 sudo="sudo"
 pkgmgr=""
 update="update"
@@ -34,6 +35,10 @@ if echo "$OSTYPE" | grep -qE '^(linux-gnu|msys).*'; then
 elif echo "$OSTYPE" | grep -qE '^darwin.*'; then
     pkgmgr="brew"
     install="install"
+
+    # The `/bin` directory in macOS is read-only, so you need to install the binary in `/usr/local`
+    # https://github.com/openstreetmap/mod_tile/issues/349#issuecomment-1784165860
+    prefix="/usr/local"
 
 elif echo "$OSTYPE" | grep -qE '^linux-android.*'; then
     pkgmgr="pkg"
@@ -88,7 +93,7 @@ if ! command -v git >/dev/null; then
     fi
 fi
 
-log $sudo cp dotload "$PREFIX/bin"
+log $sudo cp dotload "$prefix/bin"
 
 step "3/3" "Cleaning"
 log rm "$TEMP_DIR/dotload"
