@@ -8,6 +8,10 @@ while [[ $# -gt 0 ]]; do
         shift
         VERSION="$1"
         ;;
+    --workflow)
+        shift
+        workflow="true"
+        ;;
     esac
     shift
 done
@@ -15,7 +19,7 @@ done
 # Create version in snapcraft.yaml
 sed -i "s/@@VERSION@@/$VERSION/g" snap/snapcraft.yaml
 
-if [[ "{{.WORKFLOW}}" = "true" ]]; then
+if [[ "$workflow" = "true" ]]; then
     sg lxd -c 'snap run snapcraft clean'
     sg lxd -c 'snap run snapcraft --verbose'
 else
