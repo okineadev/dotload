@@ -9,16 +9,7 @@ DOTFILES_DIR="$HOME/.dotload"
 NOTES=""
 
 if [[ $(echo "$0" | cut -c1-6) == "/snap/" ]]; then
-    # Fix snap issue with $HOME variable.
-    # This fix is ​​due to the fact that if dotload was
-    # installed with snap - it will use "~/snap/dotload/<revision>/" as $HOME
-    # That is, it means that dotload will install dotfiles in an isolated
-    # environment, and not in the real home folder
-    # To prevent such a bug, "/home/$(whoami)" will be used
-    # the whoami command returns the name of the current user
-    # For example: whoami will output "okineadev", then the home directory will be "/home/okineadev" and then everything will work fine
     HOME="/home/$(whoami)"
-
     NOTES="Snap version "
 fi
 
@@ -27,86 +18,77 @@ hyperlink() {
 }
 
 # Prints the header for the dotload script
-echo -e "$NOTES\e[1m($(hyperlink "https://github.com/okineadev/dotload/" "GitHub"))\e[0m"
+echo -e "$NOTES\e[1m($(hyperlink "https://github.com/okineadev/dotload" "GitHub"))\e[0m"
 echo ""
 
-# Function to check if the entered username is valid
-check_username() {
-    local username=$1
+error_msg() {
+    local key="$1"
+    local value="$2"
+    local message="$3"
 
-    if [[ "$username" =~ ^[a-zA-Z0-9._-]*$ ]]; then
-        if [[ ${#username} -gt 39 ]]; then
-            echo -e "  \e[1mEntered username:\e[0m \"@$username\""
-            echo "Username should not exceed 39 characters."
-            exit 1
-        elif [ -z "$username" ]; then
-            echo "Username cannot be empty"
-            exit 1
-        fi
-    else
-        echo -e "\e[1;31mERROR!\e[0m"
-        echo ""
-        echo -e "  \e[1mEntered username:\e[0m \"@$username\""
+    echo -e "\e[1;31mERROR!\e[0m"
+    echo ""
+    echo -e "  \e[1mEntered $key:\e[0m \"$value\""
+    echo -e "  $message"
+    echo ""
 
-        # Check for invalid characters in the username
-        if [[ "$username" =~ [[:space:]] ]]; then
-            echo -e "  Username contains spaces which are \e[1;4;31mnot allowed\e[0m."
-        elif [[ "$username" =~ [[:punct:]] ]]; then
-            echo -e "  Username contains punctuation characters or emoji which are \e[1;4;31mnot allowed\e[0m."
-        elif [[ "$username" =~ [[:cntrl:]] ]]; then
-            echo -e "  Username contains control characters which are \e[1;4;31mnot allowed.\e[0m"
-        elif [[ "$username" =~ [[:print:]] && ! "$username" =~ [[:graph:]] ]]; then
-            echo -e "  Username contains non-printable characters which are \e[1;4;31mnot allowed.\e[0m"
-        else
-            echo -e "  \e[1mInvalid username.\e[0m"
-        fi
-
-        echo ""
-
-        exit 1
-    fi
+    exit 1
 }
 
-# Function to check if the entered branch name is valid
-check_branch_name() {
-    local branch_name=$1
-    if [[ "$branch_name" =~ ^[a-zA-Z0-9._-]*$ ]]; then
-        if [[ ${#branch_name} -gt 40 ]]; then
-            echo -e "\e[1;31mERROR!\e[0m"
-            echo ""
-            echo -e "  \e[1mEntered branch name:\e[0m \"$branch_name\""
-            echo -e "  Branch name should not exceed \e[1m40\e[0m characters."
-            echo ""
-            exit 1
+validate() {
+    local validate_type="$1"
+    local string="$2"
+    local pretty_name;
+    local max_lenght;
+    local check_punctuations="true"
 
-        elif [ -z "$branch_name" ]; then
-            echo -e "\e[1;31mERROR!\e[0m"
-            echo ""
-            echo "  Branch name cannot be empty"
-            echo ""
-            exit 1
+    if [[ "$1" == "username" ]]; then
+        validate_type="username"
+        pretty_name="Username"
+        max_lenght=39
+
+    elif [[ "$1" == "branch" ]]; then
+        validate_type="branch name"
+        pretty_name="Branch name"
+        max_lenght=255
+
+    elif [[ "$1" == "repo_name" ]]; then
+        validate_type="repo name"
+        pretty_name="Repo name"
+        max_lenght=100
+
+    elif [[ "$1" == "url" ]]; then
+        validate_type="URL"
+        pretty_name="URL"
+        max_lenght=2048
+        check_punctuations="false"
+    fi
+
+    if [[ ${#string} -gt $max_lenght ]]; then
+        error_msg "$validate_type" "$string" "$pretty_name should not exceed \e[1m$max_lenght\e[0m characters."
+
+    elif [ -z "$string" ]; then
+        error_msg "$validate_type" "$string" "$pretty_name cannot be empty"
+
+    elif [[ "$1" =~ ^(username|branch)$ && "$string" =~ ^-.*$ ]]; then
+        error_msg "$validate_type" "$string" "$pretty_name cannot have '-' character at start."
+    fi
+
+    # Check for invalid characters in the username
+    if [[ "$string" =~ [[:space:]] ]]; then
+        error_msg "$validate_type" "$string" "$pretty_name contains spaces which are \e[1;4;31mnot allowed\e[0m."
+    elif [[ "$check_punctuations" == "true" && "$string" =~ [[:punct:]] ]]; then
+        error_msg "$validate_type" "$string" "$pretty_name contains punctuation characters or emoji which are \e[1;4;31mnot allowed\e[0m."
+    elif [[ "$string" =~ [[:cntrl:]] ]]; then
+        error_msg "$validate_type" "$string" "$pretty_name contains control characters which are \e[1;4;31mnot allowed.\e[0m"
+    elif [[ "$string" =~ [[:print:]] && ! "$string" =~ [[:graph:]] ]]; then
+        error_msg "$validate_type" "$string" "$pretty_name contains non-printable characters which are \e[1;4;31mnot allowed.\e[0m"
+    fi
+
+    if [[ "$validate_type" == "URL" ]]; then
+        if [[ ! "$string" =~ ^(http(s|)|git@).*$ ]]; then
+            error_msg "$validate_type" "$string" "Invalid URL, link can starts only with this protocols: '\e[1mhttp\e[0m', '\e[1mhttps\e[0m', ssh ('\e[1mgit@\e[0m')"
         fi
-    else
-        echo -e "\e[1;31mERROR!\e[0m"
-        echo ""
-        echo -e "  \e[1mEntered branch name:\e[0m \"$branch_name\""
-
-        # Check for invalid characters in the branch name
-        if [[ "$branch_name" =~ [[:space:]] ]]; then
-            echo -e "  Branch name contains spaces which are \e[1;4;31mnot allowed\e[0m."
-        elif [[ "$branch_name" =~ [[:punct:]] ]]; then
-            echo -e "  Branch name contains punctuation characters or emoji which are \e[1;4;31mnot allowed\e[0m."
-        elif [[ "$branch_name" =~ [[:cntrl:]] ]]; then
-            echo -e "  Branch name contains control characters which are \e[1;4;31mnot allowed.\e[0m"
-        elif [[ "$branch_name" =~ [[:print:]] && ! "$branch_name" =~ [[:graph:]] ]]; then
-            echo -e "  Branch name contains non-printable characters which are \e[1;4;31mnot allowed.\e[0m"
-        else
-            echo -e "  \e[1mInvalid branch name.\e[0m"
-        fi
-
-        echo ""
-
-        exit 1
     fi
 }
 
@@ -186,7 +168,7 @@ dotload() {
 
         # Validate the specified branch
         if [[ -n "$specified_branch" || -z "$specified_branch" ]]; then
-            check_branch_name "$specified_branch"
+            validate "branch" "$specified_branch"
             branch="--branch=$specified_branch"
         fi
     fi
@@ -195,25 +177,38 @@ dotload() {
     local repo_url;
     local repo_name;
 
-    if [[ $1 =~ ^((http(s|):\/\/|)([a-zA-Z0-9-]+\.[a-zA-Z]+)*\/|git@[a-zA-Z0-9-]+\.[a-zA-Z]+:)[a-zA-Z0-9-]+\/[a-zA-Z0-9-]+\.git$ ]]; then
-        if [[ "$1" =~ ^[a-zA-Z0-9-]+\.[a-zA-Z]+\/[a-zA-Z0-9-]+\/[a-zA-Z0-9-]+\.git$ ]]; then
+    if [[ $1 =~ ^((http(s|):\/\/|)([^\[:space:]]+\.[^\[:space:]]+)*\/|git@[^\[:space:]]+\.[^\[:space:]]+:)[^\[:space:]]+\/[^\[:space:]]+(\.git|)$ ]]; then
+        if [[ "$1" =~ ^[a-zA-Z0-9-]+\.[a-zA-Z]+\/[a-zA-Z0-9-]+\/[a-zA-Z0-9-]+(\.git|)$ ]]; then
             # Append https
             repo_url="https://$1"
         else
             repo_url="$1"
         fi
 
+        if [[ ! $repo_url =~ \.git$ ]]; then
+            repo_url="$repo_url.git"
+        fi
+
+        validate "url" "$repo_url"
+
         username="$(echo "$repo_url" | sed -E 's@^.+/([^/]+)/.*$@\1@')"
         repo_name="$(echo "$repo_url" | sed -E 's@^.+/[^/]+/([^/.]+)\.git$@\1@')"
-    else
-        username=${1##*@}
 
-        # Validate the username
-        check_username "$username"
+    elif [[ $1 =~ ^@[^\s@]+(\/[^\[:space:]]+|)$ ]]; then
+        if [[ $1 =~ ^@[^\s@]+\/[^\[:space:]]+$ ]]; then
+            username=$(echo $1 | cut -d '/' -f 1 | cut -d '@' -f 2)
+            repo_name=$(echo $1 | cut -d '/' -f 2)
+        elif [[ $1 =~ ^@[^\s@]+$ ]]; then
+            username=${1##*@}
+            local repo_name="dotfiles"
+        fi
 
-        local repo_name="dotfiles"
-        local repo_url="https://github.com/$username/$repo_name.git"
+        repo_url="https://github.com/$username/$repo_name.git"
     fi
+
+    # Validate the username
+    validate "username" "$username"
+    validate "repo_name" "$repo_name"
 
     # Check if dotfiles directory already exists and is up to date
     if [[ -d "$DOTFILES_DIR" && "$(git -C "$DOTFILES_DIR" remote get-url origin)" == "$repo_url" && -z $branch ]]; then
@@ -346,15 +341,19 @@ dotload() {
 }
 
 print_usage() {
-    echo "Usage: dotload [@username | <repo_url>] [branch]"
+    echo "Usage: dotload [@username/[repo_name]] | <repo_url>] [branch]"
     echo ""
     echo "Options:"
     echo "  @username   The username of the GitHub user whose dotfiles you want to clone."
+    echo "  [repo_name] (Optional) The name of the git repository from which you want to clone dotfiles."
+    echo "              If not specified, the name \"dotfiles\" will be used by default"
+    echo ""
     echo "  <repo_url>  The URL of the git repository from which you want to clone dotfiles."
     echo "  branch      (Optional) The branch of the repository you want to clone. If not specified, the default branch is used."
     echo ""
     echo "Examples:"
     echo "  dotload @username"
+    echo "  dotload @username/dotfiles"
     echo "  dotload @username dev-branch"
     echo "  dotload https://github.com/username/dotfiles"
     echo "  dotload https://github.com/username/dotfiles dev-branch"
@@ -367,16 +366,18 @@ print_dotload_help() {
     echo "dotload - A simple script to download dotfiles from a git repository"
     echo ""
     echo "Usage:"
-    echo "  dotload @<username> [--branch branch_name | -b branch_name]"
+    echo "  dotload @<username>/[repo_name] [--branch branch_name | -b branch_name]"
     echo "  dotload <repo_url> [--branch branch_name | -b branch_name]"
     echo ""
     echo "Options:"
     echo "  @<username>        The username of the GitHub user whose dotfiles you want to clone."
+    echo "  [repo_name]        (Optional) The name of the git repository from which you want to clone dotfiles."
     echo "  <repo_url>         The URL of the git repository from which you want to clone dotfiles."
     echo "  [branch_name]      (Optional) The branch of the repository you want to clone. If not specified, the default branch is used."
     echo ""
     echo "Examples:"
     echo "  dotload @username"
+    echo "  dotload @username/dotfiles"
     echo "  dotload @username dev-branch"
     echo "  dotload https://github.com/username/dotfiles.git"
     echo "  dotload https://github.com/username/dotfiles.git --branch main"
@@ -388,10 +389,12 @@ if [[ -z $1 || $1 == "--help" || $1 == "help" ]]; then
     print_usage
 
 # Check if the script is invoked with a username
-elif [[ $1 == @* || $1 =~ ^((http(s|):\/\/|)([a-zA-Z0-9-]+\.[a-zA-Z]+)*\/|git@[a-zA-Z0-9-]+\.[a-zA-Z]+:)[a-zA-Z0-9-]+\/[a-zA-Z0-9-]+\.git$ ]]; then
+elif [[ $1 =~ ^@[^\[:space:]]+(\/[^\[:space:]]+|)$ || $1 =~ ^((http(s|):\/\/|)([^\[:space:]]+\.[^\[:space:]]+)*\/|git@[^\[:space:]]+\.[^\[:space:]]+:)[^\[:space:]]+\/[^\[:space:]]+(\.git|)$ ]]; then
     if [[ $2 == "--help" ]]; then
         print_dotload_help
         exit 0
     fi
     dotload "$@"
+else
+    echo -e "Unknown command.\nSee '$0 --help'"
 fi
