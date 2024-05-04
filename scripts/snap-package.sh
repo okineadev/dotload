@@ -1,12 +1,14 @@
 #!/usr/bin/env bash
 
+VERSION=""
+
 while [[ $# -gt 0 ]]; do
     key="$1"
 
     case $key in
     --version)
-        shift
         VERSION="$2"
+        shift
         ;;
     --workflow)
         shift
