@@ -49,14 +49,14 @@ jobs:
         release_version=$(echo "$tag" | sed 's/v//g')
         changes="You can view the changes at this link - https://github.com/okineadev/dotload/releases/tag/$tag"
 
-        make deb-package ARGS="\
+        make deb-package ARGS=" \
           --workflow \
-          --version $release_version \
-          --fullname $FULLNAME \
-          --email $EMAIL \
-          --changes $changes \
-          --passphrase ${{ secrets.PPA_GPG_KEY_PASSPHRASE }} \
-          --key $key"
+          --version '$release_version' \
+          --fullname '$FULLNAME' \
+          --email '$EMAIL' \
+          --changes '$changes' \
+          --passphrase '${{ secrets.PPA_GPG_KEY_PASSPHRASE }}' \
+          --key '$key'"
 
     - name: 🛠️ Build Snap package
       run: |
@@ -73,12 +73,15 @@ jobs:
         release_version=$(echo "$tag" | sed 's/v//g')
 
         # Build snap package
-        make snap-package ARGS="--workflow --version $release_version"
+        make snap-package ARGS="--workflow --version '$release_version'"
 
     - name: ✅ Attest artifact
       uses: github-early-access/generate-build-provenance@main
       with:
-        subject-path: dotload 'dotload_*.deb' 'dotload_*.snap'
+        subject-path: |
+          dotload
+          dotload_*.deb
+          dotload_*.snap
 
     - name: ⬆️ Upload files to release
       uses: softprops/action-gh-release@v1
