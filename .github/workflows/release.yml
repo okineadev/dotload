@@ -75,11 +75,11 @@ jobs:
         # Build snap package
         make snap-package ARGS="--workflow --version '$release_version'"
 
-    - name: ✅ Attest artifact
+    - name: ✅ Attest artifacts
       uses: github-early-access/generate-build-provenance@main
       with:
         subject-path: |
-          dotload
+          dotload/bin/dotload
           dotload_*.deb
           dotload_*.snap
 
