@@ -6,13 +6,12 @@ while [[ $# -gt 0 ]]; do
     key="$1"
 
     case $key in
+    --workflow)
+        workflow="true"
+        ;;
     --version)
         VERSION="$2"
-        shift
-        ;;
-    --workflow)
-        shift
-        workflow="true"
+        echo "$VERSION"
         ;;
     esac
     shift
