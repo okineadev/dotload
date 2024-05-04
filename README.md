@@ -146,14 +146,25 @@ Or you can run without installation on **any** OS with this command:
 bash <(curl -sL https://github.com/okineadev/dotload/releases/latest/download/dotload) @username
 ```
 
+### Compatibility table
+
+| **Linux** | **Termux** | **macOS** | **Windows** (on [msys shell](https://www.msys2.org/)) |
+| :-: | :-: | :-: | :-: |
+| ✅ | ✅ | 🟡 | ✅ |
+
+> _Currently only symlink creation works on **macOS**, support for this system is in progress_ 🔬
+
 ## 🚀 Usage
 
 ```bash
 dotload @username
+dotload @username/repo_name
 dotload https://github.com/username/dotfiles.git
 ```
 
 Where `username` is the **GitHub username** whose dotfiles you want to clone.
+
+`repo_name` - Name of your **dotfiles repository**, if not specified - `dotfiles` name will be used by default
 
 You can also use URLs of repositories such as **GitLab**, **Codeberg**, etc.
 
