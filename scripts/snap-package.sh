@@ -6,7 +6,7 @@ while [[ $# -gt 0 ]]; do
     case $key in
     --version)
         shift
-        VERSION="$1"
+        VERSION="$2"
         ;;
     --workflow)
         shift
