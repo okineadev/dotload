@@ -1,8 +1,7 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the
 // README at: https://github.com/devcontainers/templates/tree/main/src/ubuntu
 {
-  "name": "Ubuntu",
-  // Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+  "name": "dotload",
   "image": "mcr.microsoft.com/devcontainers/base:jammy",
   "features": {
     "ghcr.io/devcontainers/features/github-cli:1": {},
@@ -12,7 +11,7 @@
 
   "privileged": true,
 
-  "onCreateCommand": "echo 'debconf debconf/frontend select Noninteractive' | sudo debconf-set-selections && sudo apt update && sudo apt upgrade -y && sudo apt install devscripts debhelper -y",
+  "onCreateCommand": "echo 'debconf debconf/frontend select Noninteractive' | sudo debconf-set-selections && sudo apt update && sudo apt install devscripts debhelper -y",
 
   "customizations": {
     "vscode": {
