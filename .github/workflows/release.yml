@@ -20,8 +20,10 @@ jobs:
     steps:
     - name: 🏷️ Check tag name
       run: |
+        echo "::group::Checking tag name"
         tag="${{ github.ref_name }}"
         echo "$tag" | grep -Pq "^v\d+\.\d+\.\d+$" || (echo "Error: Tag name '$tag' does not correct." && exit 1)
+        echo "::endgroup::"
 
     - name: 📥 Clone repository
       uses: actions/checkout@v4.1.2
@@ -33,7 +35,9 @@ jobs:
       #   packages: devscripts dput debhelper
       #   version: 1.0
       run: |
+        echo "::group::Installing dependencies"
         sudo apt-get install devscripts dput debhelper -y
+        echo "::endgroup::"
 
     - name: 🔐 Set up GPG key
       # GPG key for signing deb packages
@@ -54,6 +58,7 @@ jobs:
         changes="You can view the changes at this link - https://github.com/okineadev/dotload/releases/tag/$tag"
 
         # ugly syntax
+        echo "::group::Building deb-package"
         make deb-package ARGS=" \
           --workflow \
           --version '$release_version' \
@@ -63,9 +68,12 @@ jobs:
           --passphrase '${{ secrets.PPA_GPG_KEY_PASSPHRASE }}' \
           --key '$key'"
 
+        echo "::endgroup::"
+
     - name: 🛠️ Build Snap package
       run: |
         # Install `lxd`
+        echo "::group::Installing `lxd`"
         sudo iptables -P FORWARD ACCEPT
         sudo snap install snapcraft --classic
         sudo usermod -aG lxd $USER
@@ -76,11 +84,15 @@ jobs:
         export SNAPCRAFT_STORE_CREDENTIALS="${{ secrets.SNAPCRAFT_CREDENTIALS }}"
 
         # Get version from tag
+        echo "::group::Get version from tag"
         tag="${{ github.ref_name }}"
         release_version=$(echo "$tag" | sed 's/v//g')
+        echo "::endgroup::"
 
         # Build snap package
+        echo "::group::Building snap package"
         make snap-package ARGS="--workflow --version '$release_version'"
+        echo "::endgroup::"
 
     - name: ✅ Attest artifacts
       uses: github-early-access/generate-build-provenance@main
@@ -104,15 +116,22 @@ jobs:
     - name: 📦 Upload package to Ubuntu PPA
       continue-on-error: true
       run: |
+        echo "::group::Uploading deb-package to Ubuntu PPA"
         dput ppa:salumin/tools dotload_*_source.changes
+        echo "::endgroup::"
 
     - name: 📦 Upload package to Snap Store
       continue-on-error: true
       run: |
         # Login
         export SNAPCRAFT_STORE_CREDENTIALS="${{ secrets.SNAPCRAFT_CREDENTIALS }}"
+        echo "::group::Uploading snap-package to Snap Store"
         snapcraft upload --release=stable dotload_*_all.snap
+        echo "::endgroup::"
 
     - name: 🧹 Clean
       run: |
+        echo "### Done! :rocket:" >> $GITHUB_STEP_SUMMARY
+        echo "::group::Cleaning"
         make clean
+        echo "::endgroup::"
