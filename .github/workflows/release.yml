@@ -1,7 +1,6 @@
 name: Attach files to release and upload to PPA
 
 on:
-  workflow_dispatch:
   release:
     types:
       - published
@@ -14,11 +13,12 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
-    - name: Check tag name
+    - name: 🏷️ Check tag name
       run: |
         tag="${{ github.ref_name }}"
         echo "$tag" | grep -Pq "^v\d+\.\d+\.\d+$" || (echo "Error: Tag name '$tag' does not correct." && exit 1)
@@ -33,9 +33,10 @@ jobs:
       #   packages: devscripts dput debhelper
       #   version: 1.0
       run: |
-        sudo apt install devscripts dput debhelper -y
+        sudo apt-get install devscripts dput debhelper -y
 
     - name: 🔐 Set up GPG key
+      # GPG key for signing deb packages
       run: |
         echo "${{ secrets.PPA_GPG_KEY }}" | gpg --allow-secret-key-import --import --batch --yes
 
@@ -43,12 +44,16 @@ jobs:
       run: |
         EMAIL="81070564+okineadev@users.noreply.github.com"
         FULLNAME="Okinea Dev"
+
         # GPG key to use
         key="2783259A7535F745"
+
+        # Get version from tag
         tag="${{ github.ref_name }}"
         release_version=$(echo "$tag" | sed 's/v//g')
         changes="You can view the changes at this link - https://github.com/okineadev/dotload/releases/tag/$tag"
 
+        # ugly syntax
         make deb-package ARGS=" \
           --workflow \
           --version '$release_version' \
@@ -60,6 +65,7 @@ jobs:
 
     - name: 🛠️ Build Snap package
       run: |
+        # Install `lxd`
         sudo iptables -P FORWARD ACCEPT
         sudo snap install snapcraft --classic
         sudo usermod -aG lxd $USER
@@ -69,6 +75,7 @@ jobs:
         # Login
         export SNAPCRAFT_STORE_CREDENTIALS="${{ secrets.SNAPCRAFT_CREDENTIALS }}"
 
+        # Get version from tag
         tag="${{ github.ref_name }}"
         release_version=$(echo "$tag" | sed 's/v//g')
 
@@ -77,6 +84,7 @@ jobs:
 
     - name: ✅ Attest artifacts
       uses: github-early-access/generate-build-provenance@main
+      # Read: https://docs.github.com/en/actions/security-guides/using-artifact-attestations-to-establish-provenance-for-builds
       with:
         subject-path: |
           dotload/bin/dotload
