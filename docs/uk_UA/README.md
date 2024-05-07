@@ -2,7 +2,7 @@
 
 [![GitHub Release Date][github-release-date]][github-release-page]
 [![GitHub workflow status][github-workflow-status]][github-workflow-runs]
-[![GitHub License][github-license]](LICENSE)
+[![GitHub License][github-license]](../../LICENSE)
 ![Made with love][made-with-love]
 ![GitHub Repo stars][github-stars]
 
@@ -39,7 +39,7 @@
 
 Цей інструмент було створено для того, щоб **максимально спростити** встановлення дотфайлів, необхідних інструментів для розробки (таких як **nodejs**, **php**, тощо.) та інших пакетів.
 
-### 🤔 Як він працює?
+### 🤔 Як це працює?
 
 Цей інструмент робить символічні посилання на ваші дотфайли з `~/.dotload` в папку `$HOME`
 

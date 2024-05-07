@@ -39,6 +39,7 @@
 This tool was created to make it as **easy as possible** to install dotfiles, required development tools (such as **nodejs**, **php**, **etc**.) and other packages.
 
 ### 🤔 How does it work?
+
 This tool makes symbolic links to your dotfiles from `~/.dotload` to `$HOME` directory
 
 It can also make symbolic links to folders (including subfolders) whose name starts with a dot, for example `.configs`
