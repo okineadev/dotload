@@ -63,7 +63,7 @@ log() {
 }
 
 step() {
-    write_log "\e[30m[$1]\e[0m \e[1m$2\e[0m"
+    write_log "[$1] \e[1m$2\e[0m"
 }
 
 cd "$TEMP_DIR"

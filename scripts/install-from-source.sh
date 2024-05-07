@@ -24,7 +24,7 @@ elif echo "$OSTYPE" | grep -qE '^linux-android.*'; then
 fi
 
 step() {
-    echo -e "\e[1;32m↪\e[0m \e[30m[$1]\e[0m \e[1m$2\e[0m"
+    echo -e "\e[1;32m↪\e[0m [$1] \e[1m$2\e[0m"
 }
 
 echo ""
