@@ -75,7 +75,7 @@ You can install `dotload` using the following package managers:
   📥 **Install**:
 
   ```bash
-  curl -sL https://raw.githubusercontent.com/okineadev/dotload/main/install.sh | bash
+  curl -sL https://cutt.ly/dotload-install | bash
   ```
 
   🗑️ **Uninstall**:
@@ -143,7 +143,7 @@ You can install `dotload` using the following package managers:
 Or you can run without installation on **any** OS with this command:
 
 ```bash
-bash <(curl -sL https://github.com/okineadev/dotload/releases/latest/download/dotload) @username
+bash <(curl -sL https://cutt.ly/dotload) @username
 ```
 
 ### Compatibility table

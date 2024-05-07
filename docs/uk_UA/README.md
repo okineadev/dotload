@@ -77,7 +77,7 @@
   📥 **Встановлення**:
 
   ```bash
-  curl -sL https://raw.githubusercontent.com/okineadev/dotload/main/install.sh | bash
+  curl -sL https://cutt.ly/dotload-install | bash
   ```
 
   🗑️ **Видалення**:
@@ -145,7 +145,7 @@
 Також ви можете запустити його без встановлення на **будь-якій** ОС за допомогою цієї команди:
 
 ```bash
-bash <(curl -sL https://github.com/okineadev/dotload/releases/latest/download/dotload) @username
+bash <(curl -sL https://cutt.ly/dotload) @username
 ```
 
 ### Таблиця сумісності
