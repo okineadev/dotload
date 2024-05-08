@@ -4,6 +4,7 @@
 # shellcheck disable=SC2155
 # shellcheck disable=SC2181
 # shellcheck disable=SC2236
+# shellcheck disable=SC2143
 
 DOTFILES_DIR="$HOME/.dotload"
 NOTES=""
@@ -197,8 +198,8 @@ dotload() {
 
     elif [[ $(echo "$1" | grep -E '^@[^\s@]+(/\S+|$)$') ]]; then
         if [[ $(echo "$1" | grep -E '^@[^\s@]+/\S+$') ]]; then
-            username=$(echo $1 | cut -d '/' -f 1 | cut -d '@' -f 2)
-            repo_name=$(echo $1 | cut -d '/' -f 2)
+            username=$(echo "$1" | cut -d '/' -f 1 | cut -d '@' -f 2)
+            repo_name=$(echo "$1" | cut -d '/' -f 2)
         elif [[ $1 =~ ^@[^\s@]+$ ]]; then
             username=${1##*@}
             local repo_name="$DEFAULT_DOTFILES_REPO"
@@ -255,11 +256,8 @@ dotload() {
 
     local custom_install_script
 
-    # FIXME:
-    # shellcheck disable=SC2010
-    custom_install_script=$(ls "$DOTFILES_DIR" |
-        grep -E '^(((script/)?(bootstrap|setup)|install)(\.sh|))$' |
-        head -n 1)
+    # Solution for `git ls-files`: https://superuser.com/a/987438
+    custom_install_script=$(git -C "$DOTFILES_DIR" ls-files | grep -E '^(((script/)?(bootstrap|setup)|install)(\.sh|))$' | head -n 1)
 
     if [ -f "$DOTFILES_DIR/dotload.conf" ]; then
         if [ ! -z "$(read_declaration "installation_script")" ]; then
