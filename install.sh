@@ -3,6 +3,7 @@
 # Folder for the installation environment
 TEMP_DIR="$PREFIX/tmp"
 LOG_FILE="$TEMP_DIR/dotload-installer.log"
+EXECUTABLE_LINK="https://github.com/okineadev/dotload/releases/latest/download/dotload"
 
 if [[ ! -f $LOG_FILE ]]; then
     # Create log file in temporary dir
@@ -12,12 +13,14 @@ else
     echo "" > "$LOG_FILE"
 fi
 
+# Modifiable prefix variable
 prefix="$PREFIX"
 sudo="sudo"
 pkgmgr=""
 update="update"
 install="install -y"
 
+# If Linux OS or msys (linux emulator on Windows)
 if echo "$OSTYPE" | grep -qE '^(linux-gnu|msys).*'; then
     if [ -f '/etc/debian_version' ]; then
         pkgmgr="apt"
@@ -32,6 +35,7 @@ if echo "$OSTYPE" | grep -qE '^(linux-gnu|msys).*'; then
         fi
     fi
 
+# macOS
 elif echo "$OSTYPE" | grep -qE '^darwin.*'; then
     pkgmgr="brew"
     install="install"
@@ -40,6 +44,7 @@ elif echo "$OSTYPE" | grep -qE '^darwin.*'; then
     # https://github.com/openstreetmap/mod_tile/issues/349#issuecomment-1784165860
     prefix="/usr/local"
 
+# Termux
 elif echo "$OSTYPE" | grep -qE '^linux-android.*'; then
     pkgmgr="pkg"
     sudo=""
@@ -71,13 +76,20 @@ cd "$TEMP_DIR"
 echo ""
 
 step "1/3" "Downloading executable"
-log curl -LO --progress-bar https://github.com/okineadev/dotload/releases/latest/download/dotload
+log curl -LO --progress-bar "$EXECUTABLE_LINK"
+
 # Makes the script executable
 log chmod +x dotload
 
-step "2/3" "Installing"
+
+if [[ -f "$prefix/bin/dotload" ]]; then
+    step "2/3" "Updating"
+else
+    step "2/3" "Installing"
+fi
+
 if ! command -v git >/dev/null; then
-    step "2.1/3" "Installing git"
+    step "2.1/3" "Installing dependencies"
 
     if [[ ! -n "$pkgmgr" ]]; then
         echo -e "$pkgmgr in not defined\nPlease install \e[1mgit\e[0m manually."
@@ -85,6 +97,7 @@ if ! command -v git >/dev/null; then
     else
         if [[ "$pkgmgr" == "brew" ]]; then
             if ! command -v brew >/dev/null; then
+                # Code from https://brew.sh/#install
                 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
             fi
         fi
