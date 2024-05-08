@@ -88,7 +88,7 @@ validate() {
     fi
 
     if [[ "$validate_type" == "URL" ]]; then
-        if [[ ! $(echo "$string" | grep -E '^(http(s|)|git@).*$') ]]; then
+        if [[ ! $(echo "$string" | grep -E '^(http[s]|git@).*$') ]]; then
             error_msg "$validate_type" "$string" "Invalid URL, link can starts only with this protocols: '\e[1mhttp\e[0m', '\e[1mhttps\e[0m', ssh ('\e[1mgit@\e[0m')"
         fi
     fi
@@ -179,7 +179,7 @@ dotload() {
     local repo_url;
     local repo_name;
 
-    if [[ $(echo "$1" | grep -E '^((http(s|)://|)(\S+\.\S+)*/|git@\S+\.\S+:)\S+/\S+(\.git|$)$') ]]; then
+    if [[ $(echo "$1" | grep -E '^((http[s]://|^)(\S+\.\S+)*/|git@\S+\.\S+:)\S+/\S+(\.git|$)$') ]]; then
         if [[ $(echo "$1" | grep -E '^[a-zA-Z0-9-]+\.[a-zA-Z]+(/[a-zA-Z0-9-]+){2}(\.git|$)$') ]]; then
             # Append https
             repo_url="https://$1"
@@ -388,7 +388,7 @@ if [[ -z $1 || $1 == "--help" || $1 == "help" ]]; then
     print_usage
 
 # Check if the script is invoked with a username
-elif [[ $(echo "$1" | grep -E '^@[^\s@]+(/\S+|$)$') || $(echo "$1" | grep -E '^((http(s|)://|)(\S+\.\S+)*/|git@\S+\.\S+:)\S+/\S+(\.git|$)$') ]]; then
+elif [[ $(echo "$1" | grep -E '^@[^\s@]+(/\S+|$)$') || $(echo "$1" | grep -E '^((http[s]://|^)(\S+\.\S+)*/|git@\S+\.\S+:)\S+/\S+(\.git|$)$') ]]; then
     if [[ $2 == "--help" ]]; then
         print_dotload_help
         exit 0
