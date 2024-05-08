@@ -151,9 +151,7 @@ bash <(curl -sL https://cutt.ly/dotload) @username
 
 | **Linux** | **Termux** | **macOS** | **Windows** (on [msys shell](https://www.msys2.org/)) |
 | :-: | :-: | :-: | :-: |
-| ✅ | ✅ | 🟡 | ✅ |
-
-> _Currently only symlink creation works on **macOS**, support for this system is in progress_ 🔬
+| ✅ | ✅ | ✅ | ✅ |
 
 ## 🚀 Usage
 

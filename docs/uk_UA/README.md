@@ -152,9 +152,7 @@ bash <(curl -sL https://cutt.ly/dotload) @username
 
 | **Linux** | **Termux** | **macOS** | **Windows** (on [msys shell](https://www.msys2.org/)) |
 | :-: | :-: | :-: | :-: |
-| ✅ | ✅ | 🟡 | ✅ |
-
-> _Наразі в **macOS** працює лише створення символічних посилань, ведеться робота над підтримкою цієї системи_ 🔬
+| ✅ | ✅ | ✅ | ✅ |
 
 ## 🚀 Використання
 
