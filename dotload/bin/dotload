@@ -104,7 +104,7 @@ check_repo_exists() {
 
 # Function to read a value from the dotload.conf file
 read_declaration() {
-    local declaration=$DOTFILES_DIR/dotload.conf
+    local declaration="$DOTFILES_DIR/dotload.conf"
     local key=$1
     local value=$(sed -n "s/.*$key=\([^ ]*\).*/\1/p" <"$declaration")
     echo "$value"
@@ -178,8 +178,8 @@ dotload() {
     local repo_url;
     local repo_name;
 
-    if [[ $(echo "$1" | grep -E '^((http(s|)://|)(\S+\.\S+)*/|git@\S+\.\S+:)\S+/\S+(\.git|)$') ]]; then
-        if [[ $(echo "$1" | grep -E '^[a-zA-Z0-9-]+\.[a-zA-Z]+(/[a-zA-Z0-9-]+){2}(\.git|)$') ]]; then
+    if [[ $(echo "$1" | grep -E '^((http(s|)://|)(\S+\.\S+)*/|git@\S+\.\S+:)\S+/\S+(\.git|$)$') ]]; then
+        if [[ $(echo "$1" | grep -E '^[a-zA-Z0-9-]+\.[a-zA-Z]+(/[a-zA-Z0-9-]+){2}(\.git|$)$') ]]; then
             # Append https
             repo_url="https://$1"
         else
@@ -195,7 +195,7 @@ dotload() {
         username="$(echo "$repo_url" | sed -E 's@^.+/([^/]+)/.*$@\1@')"
         repo_name="$(echo "$repo_url" | sed -E 's@^.+/[^/]+/([^/.]+)\.git$@\1@')"
 
-    elif [[ $(echo "$1" | grep -E '^@[^\s@]+(/\S+|)$') ]]; then
+    elif [[ $(echo "$1" | grep -E '^@[^\s@]+(/\S+|$)$') ]]; then
         if [[ $(echo "$1" | grep -E '^@[^\s@]+/\S+$') ]]; then
             username=$(echo $1 | cut -d '/' -f 1 | cut -d '@' -f 2)
             repo_name=$(echo $1 | cut -d '/' -f 2)
@@ -390,7 +390,7 @@ if [[ -z $1 || $1 == "--help" || $1 == "help" ]]; then
     print_usage
 
 # Check if the script is invoked with a username
-elif [[ $(echo "$1" | grep -E '^@[^\s@]+(/\S+|)$') || $(echo "$1" | grep -E '^((http(s|)://|)(\S+\.\S+)*/|git@\S+\.\S+:)\S+/\S+(\.git|)$') ]]; then
+elif [[ $(echo "$1" | grep -E '^@[^\s@]+(/\S+|$)$') || $(echo "$1" | grep -E '^((http(s|)://|)(\S+\.\S+)*/|git@\S+\.\S+:)\S+/\S+(\.git|$)$') ]]; then
     if [[ $2 == "--help" ]]; then
         print_dotload_help
         exit 0
