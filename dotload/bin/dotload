@@ -257,7 +257,7 @@ dotload() {
     local custom_install_script
 
     # Solution for `git ls-files`: https://superuser.com/a/987438
-    custom_install_script=$(git -C "$DOTFILES_DIR" ls-files | grep -E '^(((script/)?(bootstrap|setup)|install)(\.sh|))$' | head -n 1)
+    custom_install_script=$(git -C "$DOTFILES_DIR" ls-files | grep -E '^(((script/)?(bootstrap|setup)|install)(\.sh|$))$' | head -n 1)
 
     if [ -f "$DOTFILES_DIR/dotload.conf" ]; then
         if [ ! -z "$(read_declaration "installation_script")" ]; then
