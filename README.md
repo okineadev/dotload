@@ -9,7 +9,8 @@
 <!-- PROJECT LOGO -->
 <div align="center">
   <a href="https://github.com/okineadev/dotload">
-    <img src="public/banner.png" alt="Banner">
+    <img src="public/banner.png#gh-dark-mode-only" alt="Banner">
+    <img src="public/banner-white.png#gh-light-mode-only" alt="Banner">
   </a>
 
   <h3 align="center">dotload</h3>
@@ -32,7 +33,9 @@
 
 ## ℹ️ About the project
 
-![Screenshot](public/screenshot.png)
+![Screenshot](public/screenshot.png#gh-dark-mode-only)
+![Screenshot](public/screenshot-white.png#gh-light-mode-only)
+
 
 `dotload` works by cloning the specified user's **GitHub** dotfiles repository
 
@@ -149,7 +152,7 @@ bash <(curl -sL https://cutt.ly/dotload) @username
 
 ### Compatibility table
 
-| <div><img src="https://upload.wikimedia.org/wikipedia/commons/f/f1/Icons8_flat_linux.svg" width="30"/></div> **Linux** | <div><img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/Termux.svg" width="30"/></div> **Termux** | <div><img src="public/macos-logo.svg#gh-light-mode-only" width="30"/><img src="public/macos-white-logo.svg#gh-dark-mode-only" width="30"/></div> **macOS** | <div><img src="https://github.com/okineadev/dotload/assets/81070564/99544c04-51e7-41b5-95f7-0828cfc97617" width="30"/></div> **Windows** (on [msys shell](https://www.msys2.org/)) |
+| <div><img src="https://upload.wikimedia.org/wikipedia/commons/f/f1/Icons8_flat_linux.svg" alt="Linux logo" width="30"/></div> **Linux** | <div><img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/Termux.svg" alt="Termux logo" width="30"/></div> **Termux** | <div><img src="public/macos-logo.svg#gh-light-mode-only" alt="macOS logo" width="30"/><img src="public/macos-white-logo.svg#gh-dark-mode-only" alt="macOS logo" width="30"/></div> **macOS** | <div><img src="https://github.com/okineadev/dotload/assets/81070564/99544c04-51e7-41b5-95f7-0828cfc97617" alt="Windows logo" width="30"/></div> **Windows** (on [msys shell](https://www.msys2.org/)) |
 | :-: | :-: | :-: | :-: |
 | ✅ | ✅ | ✅ | ✅ |
 
