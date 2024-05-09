@@ -9,6 +9,7 @@
 <!-- PROJECT LOGO -->
 <div align="center">
   <a href="https://github.com/okineadev/dotload">
+    <!-- https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#specifying-the-theme-an-image-is-shown-to -->
     <picture>
       <source media="(prefers-color-scheme: dark)" srcset="public/banner.png" alt="Banner">
       <source media="(prefers-color-scheme: light)" srcset="public/banner-white.png" alt="Banner">
