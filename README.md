@@ -149,7 +149,7 @@ bash <(curl -sL https://cutt.ly/dotload) @username
 
 ### Compatibility table
 
-| **Linux** | **Termux** | **macOS** | **Windows** (on [msys shell](https://www.msys2.org/)) |
+| <div><img src="https://upload.wikimedia.org/wikipedia/commons/f/f1/Icons8_flat_linux.svg" width="30"/></div> **Linux** | <div><img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/Termux.svg" width="30"/></div> **Termux** | <div><img src="public/macos-logo.svg#gh-light-mode-only" width="30"/><img src="public/macos-white-logo.svg#gh-dark-mode-only" width="30"/></div> **macOS** | <div><img src="https://github.com/okineadev/dotload/assets/81070564/99544c04-51e7-41b5-95f7-0828cfc97617" width="30"/></div> **Windows** (on [msys shell](https://www.msys2.org/)) |
 | :-: | :-: | :-: | :-: |
 | ✅ | ✅ | ✅ | ✅ |
 
