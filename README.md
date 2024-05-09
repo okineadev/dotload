@@ -9,8 +9,11 @@
 <!-- PROJECT LOGO -->
 <div align="center">
   <a href="https://github.com/okineadev/dotload">
-    <img src="public/banner.png#gh-dark-mode-only" alt="Banner">
-    <img src="public/banner-white.png#gh-light-mode-only" alt="Banner">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="public/banner.png" alt="Banner">
+      <source media="(prefers-color-scheme: light)" srcset="public/banner-white.png" alt="Banner">
+      <img src="public/banner.png" alt="Banner">
+    </picture>
   </a>
 
   <h3 align="center">dotload</h3>

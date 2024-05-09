@@ -9,8 +9,11 @@
 <!-- PROJECT LOGO -->
 <div align="center">
   <a href="https://github.com/okineadev/dotload">
-    <img src="../../public/banner.png#gh-dark-mode-only" alt="Баннер">
-    <img src="../../public/banner-white.png#gh-light-mode-only" alt="Баннер">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="../../public/banner.png" alt="Баннер">
+      <source media="(prefers-color-scheme: light)" srcset="../../public/banner-white.png" alt="Баннер">
+      <img src="../../public/banner.png" alt="Баннер">
+    </picture>
   </a>
 
   <h3 align="center">dotload</h3>
@@ -34,7 +37,8 @@
 
 ## ℹ️ Про проект
 
-![Screenshot](../../public/screenshot.png)
+![Screenshot](../../public/screenshot.png#gh-dark-mode-only)
+![Screenshot](../../public/screenshot-white.png#gh-light-mode-only)
 
 `dotload` працює шляхом клонування репозиторію `dotfiles` з **GitHub** вказаного користувача
 
