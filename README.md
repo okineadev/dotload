@@ -78,7 +78,7 @@ You can install `dotload` using the following package managers:
   <summary><b>With install.sh (Reccomended) ✅</b></summary>
   <br/>
 
-  With this method, you can install dotload on almost **any system**, including Termux
+  With this method, you can install **dotload** on almost **any system**, including **Termux**
 
   📥 **Install**:
 
@@ -144,6 +144,20 @@ You can install `dotload` using the following package managers:
   make uninstall
   # Or
   task uninstall
+  ```
+
+</details>
+
+<details>
+  <summary><b>Termux</b></summary>
+  <br/>
+
+  You will also receive further updates with this method
+
+  ```bash
+  # Add Termux User Repository
+  pkg install tur-repo
+  pkg update && pkg install dotload
   ```
 
 </details>
