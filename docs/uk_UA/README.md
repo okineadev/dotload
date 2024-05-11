@@ -295,7 +295,6 @@ man dotload
 Ось реквізити для переказів:
 
 - 🍩 **Donatello**: <https://donatello.to/okineadev>
-- 🫙 **Банка для донатів**: <https://send.monobank.ua/jar/6rUVs4yasg>
 - 💎 **TON гаманець**: `UQBaBIBtKJpdwc4jKSGd70LZyQnEf-Nx5edzZlZAAGkHnZ7E`
 
 [github-release-date]: https://img.shields.io/github/release-date/okineadev/dotload
