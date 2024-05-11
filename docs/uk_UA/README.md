@@ -11,9 +11,9 @@
   <a href="https://github.com/okineadev/dotload">
     <!-- https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#specifying-the-theme-an-image-is-shown-to -->
     <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="../../public/banner.png" alt="Баннер">
-      <source media="(prefers-color-scheme: light)" srcset="../../public/banner-white.png" alt="Баннер">
-      <img src="../../public/banner.png" alt="Баннер">
+      <source media="(prefers-color-scheme: dark)" srcset="../../public/banner-dark.png" alt="Баннер">
+      <source media="(prefers-color-scheme: light)" srcset="../../public/banner-light.png" alt="Баннер">
+      <img src="../../public/banner-dark.png" alt="Баннер">
     </picture>
   </a>
 
@@ -38,8 +38,8 @@
 
 ## ℹ️ Про проект
 
-![Screenshot](../../public/screenshot.png#gh-dark-mode-only)
-![Screenshot](../../public/screenshot-white.png#gh-light-mode-only)
+![Screenshot](../../public/screenshot-dark.png#gh-dark-mode-only)
+![Screenshot](../../public/screenshot-light.png#gh-light-mode-only)
 
 `dotload` працює шляхом клонування репозиторію `dotfiles` з **GitHub** вказаного користувача
 
@@ -170,7 +170,7 @@ bash <(curl -sL https://cutt.ly/dotload) @username
 
 ### Таблиця сумісності
 
-| <div><img src="https://upload.wikimedia.org/wikipedia/commons/f/f1/Icons8_flat_linux.svg" alt="Linux logo" width="30"/></div> **Linux** | <div><img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/Termux.svg" alt="Termux logo" width="30"/></div> **Termux** | <div><img src="../../public/macos-logo.svg#gh-light-mode-only" alt="macOS logo" width="30"/><img src="../../public/macos-white-logo.svg#gh-dark-mode-only" alt="macOS logo" width="30"/></div> **macOS** | <div><img src="https://github.com/okineadev/dotload/assets/81070564/99544c04-51e7-41b5-95f7-0828cfc97617" alt="Windows logo" width="30"/></div> **Windows** (on [msys shell](https://www.msys2.org/)) |
+| <div><img src="https://upload.wikimedia.org/wikipedia/commons/f/f1/Icons8_flat_linux.svg" alt="Linux logo" width="30"/></div> **Linux** | <div><img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/Termux.svg" alt="Termux logo" width="30"/></div> **Termux** | <div><img src="../../public/macos-dark-logo.svg#gh-light-mode-only" alt="macOS logo" width="30"/><img src="../../public/macos-light-logo.svg#gh-dark-mode-only" alt="macOS logo" width="30"/></div> **macOS** | <div><img src="https://github.com/okineadev/dotload/assets/81070564/99544c04-51e7-41b5-95f7-0828cfc97617" alt="Windows logo" width="30"/></div> **Windows** (on [msys shell](https://www.msys2.org/)) |
 | :-: | :-: | :-: | :-: |
 | ✅ | ✅ | ✅ | ✅ |
 
