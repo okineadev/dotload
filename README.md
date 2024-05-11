@@ -34,6 +34,12 @@
   src="public/flag-ua.png"
   alt="Ukrainian">
 </a>
+<a href="docs/pl/README.md"><img
+  height="20"
+  src="public/flag-pl.svg"
+  alt="Polish">
+</a>
+
 
 ## ℹ️ About the project
 
@@ -247,7 +253,7 @@ or make it optional in `dotload.conf`, for this read the [**dotload.conf documen
 
 - [ ] Add multilingual **README.md** support
   - [x] 🇺🇦 Ukrainian
-  - [ ] 🇵🇱 Polish
+  - [x] 🇵🇱 Polish
   - [ ] 🇩🇪 German
 - [ ] Write instructions for developers (package assembly)
 - [ ] Rewrite the function of creating **deb-packages** to support different versions of [**Ubuntu**](https://ubuntu.com/) - in progress 🚧
