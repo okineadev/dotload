@@ -103,7 +103,7 @@ jobs:
     - name: 🔏 Generate sha256sum for executable
       run: |
         executable="dotload/bin/dotload"
-        sha256sum $executable | awk '{print $1}' > $executable.sha256
+        echo "$(sha256sum $executable | awk '{print $1}') dotload" > $executable.sha256
 
     - name: ⬆️ Upload files to release
       uses: softprops/action-gh-release@v1
