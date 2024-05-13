@@ -116,6 +116,14 @@ jobs:
           dotload_*.dsc
           dotload_*.tar.xz
 
+    - name: 🍺 Bump Homebrew formula
+      uses: mislav/bump-homebrew-formula-action@v3
+      with:
+        formula-name: dotload
+        homebrew-tap: okineadev/homebrew-dotload
+        env:
+          COMMITTER_TOKEN: ${{ secrets.COMMITTER_TOKEN }}
+
     - name: 📦 Upload package to Ubuntu PPA
       continue-on-error: true
       run: |
