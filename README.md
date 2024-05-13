@@ -80,6 +80,29 @@ You can install `dotload` using the following package managers:
 </details>
 
 <details>
+  <summary><b>Homebrew</b></summary>
+  <br/>
+
+  With [**brew**](https://brew.sh/) you can install this tool on **macOS** (and **Linux** too)
+
+  > ℹ️ Note: If you don't have [**brew**](https://brew.sh/) installed, install it **now** with this command:
+
+  ```bash
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  ```
+
+  <hr/>
+
+  📥 **Install**:
+
+  ```bash
+  brew tap okineadev/dotload
+  brew install dotload
+  ```
+
+</details>
+
+<details>
   <summary><b>With install.sh (Reccomended) ✅</b></summary>
   <br/>
 

@@ -81,6 +81,29 @@
 </details>
 
 <details>
+  <summary><b>Homebrew</b></summary>
+  <br/>
+
+  За допомогою [**brew**](https://brew.sh/) ви можете встановити цей інструмент на **macOS** (а також на **Linux**)
+
+  > ℹ️ Примітка: Якщо у вас не встановлений [**brew**](https://brew.sh/), завантажте його прямо **зараз** за допомогою цієї команди:
+
+  ```bash
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  ```
+
+  <hr/>
+
+  📥 **Встановлення**:
+
+  ```bash
+  brew tap okineadev/dotload
+  brew install dotload
+  ```
+
+</details>
+
+<details>
   <summary><b>З install.sh (Рекомендовано) ✅</b></summary>
   <br/>
 
