@@ -1,9 +1,14 @@
 #!/usr/bin/env bash
 
+# shellcheck disable=SC2164
+
 # Folder for the installation environment
-TEMP_DIR="$PREFIX/tmp"
+# shellcheck disable=SC2153
+TEMP_DIR="$PREFIX/tmp/dotload-installer"
 LOG_FILE="$TEMP_DIR/dotload-installer.log"
 EXECUTABLE_LINK="https://github.com/okineadev/dotload/releases/latest/download/dotload"
+
+mkdir "$TEMP_DIR"
 
 if [[ ! -f $LOG_FILE ]]; then
     # Create log file in temporary dir
@@ -24,7 +29,7 @@ install="install -y"
 if echo "$OSTYPE" | grep -qE '^(linux-gnu|msys).*'; then
     if [ -f '/etc/debian_version' ]; then
         pkgmgr="apt"
-    elif [[ -f '/etc/arch-release' || ( $(echo "$OSTYPE") =~ ^msys.*$ ) ]]; then
+    elif [[ -f '/etc/arch-release' || "$OSTYPE" =~ ^msys.*$ ]]; then
         pkgmgr="pacman"
         install="-Sy --noconfirm"
         update="-Sy"
@@ -62,6 +67,7 @@ write_log() {
 }
 
 log() {
+    # shellcheck disable=SC2124
     local command="$@"
     # Executes the command, after which writes its output to the log
     $command 2>&1 | tee -a "$LOG_FILE"
@@ -75,21 +81,35 @@ cd "$TEMP_DIR"
 
 echo ""
 
-step "1/3" "Downloading executable"
+step "1/4" "Downloading executable"
 log curl -LO --progress-bar "$EXECUTABLE_LINK"
+
+step "2/4" "Validating checksum"
+log curl -LOs "$EXECUTABLE_LINK.sha256"
+
+# File integrity check
+if sha256sum --quiet --status -c dotload.sha256; then
+    echo "✅ Checksum validated"
+else
+    echo "❌ The checksum is invalid, please try again"
+    echo "    If the result is the same - report the error at this link: https://github.com/okineadev/dotload/issues/new?assignees=okineadev&labels=bug&template=bug_report.md&title=[Bug]:+invalid+checksum"
+
+    log rm -rf "$TEMP_DIR"
+    exit 1
+fi
 
 # Makes the script executable
 log chmod +x dotload
 
 
 if [[ -f "$prefix/bin/dotload" ]]; then
-    step "2/3" "Updating"
+    step "3/4" "Updating"
 else
-    step "2/3" "Installing"
+    step "3/4" "Installing"
 fi
 
 if ! command -v git >/dev/null; then
-    step "2.1/3" "Installing dependencies"
+    step "3.1/4" "Installing dependencies"
 
     if [[ ! -n "$pkgmgr" ]]; then
         echo -e "$pkgmgr in not defined\nPlease install \e[1mgit\e[0m manually."
@@ -102,13 +122,14 @@ if ! command -v git >/dev/null; then
             fi
         fi
 
+        # shellcheck disable=SC2086
         $sudo $pkgmgr $install git
     fi
 fi
 
 log $sudo cp dotload "$prefix/bin"
 
-step "3/3" "Cleaning"
-log rm "$TEMP_DIR/dotload"
+step "4/4" "Cleaning"
+log rm -rf "$TEMP_DIR"
 
 echo -e "\n\e[1;32mDone!\e[0m"
