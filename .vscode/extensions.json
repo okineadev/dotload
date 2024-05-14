@@ -1,10 +1,11 @@
 {
   "recommendations": [
-    "me-dutour-mathieu.vscode-github-actions",
+    "EditorConfig.EditorConfig",
+    "DavidAnson.vscode-markdownlint",
+    "mads-hartmann.bash-ide-vscode",
     "docsmsft.docs-yaml",
-    "davidanson.vscode-markdownlint",
-    "task.vscode-task",
     "shardulm94.trailing-spaces",
-    "redhat.vscode-yaml"
+    "redhat.vscode-yaml",
+    "bierner.markdown-checkbox"
   ]
 }
