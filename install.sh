@@ -88,7 +88,7 @@ step "2/4" "Validating checksum"
 log curl -LOs "$EXECUTABLE_LINK.sha256"
 
 # File integrity check
-if sha256sum --quiet --status -c dotload.sha256; then
+if shasum -a 256 --quiet --status -c dotload.sha256; then
     echo "✅ Checksum validated"
 else
     echo "❌ The checksum is invalid, please try again"
