@@ -4,8 +4,9 @@
 
 # Folder for the installation environment
 # shellcheck disable=SC2153
-TEMP_DIR="$PREFIX/tmp/dotload-installer"
-LOG_FILE="$TEMP_DIR/dotload-installer.log"
+TEMP="$PREFIX/tmp"
+TEMP_DIR="$TEMP/dotload-installer"
+LOG_FILE="$TEMP/dotload-installer.log"
 EXECUTABLE_LINK="https://github.com/okineadev/dotload/releases/latest/download/dotload"
 
 mkdir "$TEMP_DIR"
@@ -73,29 +74,59 @@ log() {
     $command 2>&1 | tee -a "$LOG_FILE"
 }
 
+available() {
+    command -v $1 >/dev/null
+}
+
+current_step=0
+steps=3
+
+if [[ ! $SKIP_CHECKSUM_VALIDATION == "true" ]]; then
+    ((steps++))
+fi
+
+
 step() {
-    write_log "[$1] \e[1m$2\e[0m"
+    ((current_step++))
+    write_log "[$current_step/$steps] \e[1m$1\e[0m"
+}
+
+shasum_cmd=""
+if available sha256; then
+    shasum_cmd="sha256sum"
+elif available shasum; then
+    shasum_cmd="shasum -a 256"
+else
+    SKIP_CHECKSUM_VALIDATION="true"
+    write_log "Skipping checksum validation"
+fi
+
+validate_checksum() {
+    log $shasum_cmd --quiet --status -c $@
 }
 
 cd "$TEMP_DIR"
 
 echo ""
 
-step "1/4" "Downloading executable"
+step "Downloading executable"
 log curl -LO --progress-bar "$EXECUTABLE_LINK"
 
-step "2/4" "Validating checksum"
-log curl -LOs "$EXECUTABLE_LINK.sha256"
+if [[ ! $SKIP_CHECKSUM_VALIDATION == "true" ]]; then
+    # ((steps++))
+    step "Validating checksum"
+    log curl -LOs "$EXECUTABLE_LINK.sha256"
 
-# File integrity check
-if shasum -a 256 --quiet --status -c dotload.sha256; then
-    echo "✅ Checksum validated"
-else
-    echo "❌ The checksum is invalid, please try again"
-    echo "    If the result is the same - report the error at this link: https://github.com/okineadev/dotload/issues/new?assignees=okineadev&labels=bug&template=bug_report.md&title=[Bug]:+invalid+checksum"
+    # File integrity check
+    if validate_checksum dotload.sha256; then
+        write_log "✅ Checksum validated"
+    else
+        write_log "❌ The checksum is invalid, please try again"
+        write_log "    If the result is the same - report the error at this link: https://github.com/okineadev/dotload/issues/new?assignees=okineadev&labels=bug&template=bug_report.md&title=[Bug]:+invalid+checksum"
 
-    log rm -rf "$TEMP_DIR"
-    exit 1
+        log rm -rf "$TEMP_DIR"
+        exit 1
+    fi
 fi
 
 # Makes the script executable
@@ -103,16 +134,16 @@ log chmod +x dotload
 
 
 if [[ -f "$prefix/bin/dotload" ]]; then
-    step "3/4" "Updating"
+    step "Updating"
 else
-    step "3/4" "Installing"
+    step "Installing"
 fi
 
-if ! command -v git >/dev/null; then
-    step "3.1/4" "Installing dependencies"
+if ! available git; then
+    step "Installing dependencies"
 
     if [[ ! -n "$pkgmgr" ]]; then
-        echo -e "$pkgmgr in not defined\nPlease install \e[1mgit\e[0m manually."
+        write_log "$pkgmgr in not defined\nPlease install \e[1mgit\e[0m manually."
         exit 1
     else
         if [[ "$pkgmgr" == "brew" ]]; then
@@ -129,7 +160,7 @@ fi
 
 log $sudo cp dotload "$prefix/bin"
 
-step "4/4" "Cleaning"
+step "Cleaning"
 log rm -rf "$TEMP_DIR"
 
 echo -e "\n\e[1;32mDone!\e[0m"
