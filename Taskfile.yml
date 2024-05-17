@@ -16,3 +16,6 @@ tasks:
 
   build-snap:
     cmd: ./scripts/snap-package.sh {{.CLI_ARGS}}
+
+  generate-checksum:
+    cmd: ./scripts/generate-checksum.sh

@@ -23,6 +23,9 @@ deb-package:
 snap-package:
 	./scripts/snap-package.sh $(ARGS)
 
-all: deb-package snap-package
+checksum:
+	./scripts/generate-checksum.sh
 
-.PHONY: clean install uninstall deb-package snap-package all
+all: deb-package snap-package checksum
+
+.PHONY: clean install uninstall deb-package snap-package checksum all

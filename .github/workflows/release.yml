@@ -18,131 +18,129 @@ jobs:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
-    - name: 🏷️ Check tag name
-      run: |
-        tag="${{ github.ref_name }}"
-        echo "$tag" | grep -Pq "^v\d+\.\d+\.\d+$" || (echo "::error::Tag name '$tag' does not correct." && exit 1)
+      - name: 🏷️ Check tag name
+        run: |
+          tag="${{ github.ref_name }}"
+          echo "$tag" | grep -Pq "^v\d+\.\d+\.\d+$" || (echo "::error::Tag name '$tag' does not correct." && exit 1)
 
-    - name: 📥 Clone repository
-      uses: actions/checkout@v4.1.5
+      - name: 📥 Clone repository
+        uses: actions/checkout@v4.1.5
 
-    - name: ⚙️ Install dependencies
-      # Temporary disable packages caching feature.
-      # uses: awalsh128/cache-apt-pkgs-action@latest
-      # with:
-      #   packages: devscripts dput debhelper
-      #   version: 1.0
-      run: |
-        echo "::group::Installing dependencies"
-        sudo apt-get install devscripts dput debhelper -y
-        echo "::endgroup::"
+      - name: ⚙️ Install dependencies
+        # Temporary disable packages caching feature.
+        # uses: awalsh128/cache-apt-pkgs-action@latest
+        # with:
+        #   packages: devscripts dput debhelper
+        #   version: 1.0
+        run: |
+          echo "::group::Installing dependencies"
+          sudo apt-get install devscripts dput debhelper -y
+          echo "::endgroup::"
 
-    - name: 🔐 Set up GPG key
-      # GPG key for signing deb packages
-      run: |
-        echo "${{ secrets.PPA_GPG_KEY }}" | gpg --allow-secret-key-import --import --batch --yes
+      - name: 🔐 Set up GPG key
+        # GPG key for signing deb packages
+        run: |
+          echo "${{ secrets.PPA_GPG_KEY }}" | gpg --allow-secret-key-import --import --batch --yes
 
-    - name: 🛠️ Build .deb package
-      run: |
-        EMAIL="81070564+okineadev@users.noreply.github.com"
-        FULLNAME="Okinea Dev"
+      - name: 🛠️ Build .deb package
+        run: |
+          EMAIL="81070564+okineadev@users.noreply.github.com"
+          FULLNAME="Okinea Dev"
 
-        # GPG key to use
-        key="2783259A7535F745"
+          # GPG key to use
+          key="2783259A7535F745"
 
-        # Get version from tag
-        tag="${{ github.ref_name }}"
-        release_version=$(echo "$tag" | sed 's/v//g')
-        changes="You can view the changes at this link - https://github.com/okineadev/dotload/releases/tag/$tag"
+          # Get version from tag
+          tag="${{ github.ref_name }}"
+          release_version=$(echo "$tag" | sed 's/v//g')
+          changes="You can view the changes at this link - https://github.com/okineadev/dotload/releases/tag/$tag"
 
-        # ugly syntax
-        echo "::group::Building deb-package"
-        make deb-package ARGS=" \
-          --workflow \
-          --version '$release_version' \
-          --fullname '$FULLNAME' \
-          --email '$EMAIL' \
-          --changes '$changes' \
-          --passphrase '${{ secrets.PPA_GPG_KEY_PASSPHRASE }}' \
-          --key '$key'"
+          # ugly syntax
+          echo "::group::Building deb-package"
+          make deb-package ARGS=" \
+            --workflow \
+            --version '$release_version' \
+            --fullname '$FULLNAME' \
+            --email '$EMAIL' \
+            --changes '$changes' \
+            --passphrase '${{ secrets.PPA_GPG_KEY_PASSPHRASE }}' \
+            --key '$key'"
 
-        echo "::endgroup::"
+          echo "::endgroup::"
 
-    - name: 🛠️ Build Snap package
-      run: |
-        # Install `lxd`
-        echo "::group::Installing `lxd`"
-        sudo iptables -P FORWARD ACCEPT
-        sudo snap install snapcraft --classic
-        sudo usermod -aG lxd $USER
-        sudo snap run lxd init --auto
-        sudo snap run lxd waitready
-        echo "::endgroup::"
+      - name: 🛠️ Build Snap package
+        run: |
+          # Install `lxd`
+          echo "::group::Installing `lxd`"
+          sudo iptables -P FORWARD ACCEPT
+          sudo snap install snapcraft --classic
+          sudo usermod -aG lxd $USER
+          sudo snap run lxd init --auto
+          sudo snap run lxd waitready
+          echo "::endgroup::"
 
-        # Login
-        export SNAPCRAFT_STORE_CREDENTIALS="${{ secrets.SNAPCRAFT_CREDENTIALS }}"
+          # Login
+          export SNAPCRAFT_STORE_CREDENTIALS="${{ secrets.SNAPCRAFT_CREDENTIALS }}"
 
-        # Get version from tag
-        tag="${{ github.ref_name }}"
-        release_version=$(echo "$tag" | sed 's/v//g')
+          # Get version from tag
+          tag="${{ github.ref_name }}"
+          release_version=$(echo "$tag" | sed 's/v//g')
 
-        # Build snap package
-        echo "::group::Building snap package"
-        make snap-package ARGS="--workflow --version '$release_version'"
-        echo "::endgroup::"
+          # Build snap package
+          echo "::group::Building snap package"
+          make snap-package ARGS="--workflow --version '$release_version'"
+          echo "::endgroup::"
 
-    - name: ✅ Attest artifacts
-      uses: github-early-access/generate-build-provenance@main
-      # Read: https://docs.github.com/en/actions/security-guides/using-artifact-attestations-to-establish-provenance-for-builds
-      with:
-        subject-path: |
-          dotload/bin/dotload
-          dotload_*.deb
-          dotload_*.snap
+      - name: ✅ Attest artifacts
+        uses: actions/attest-build-provenance
+        # Read: https://docs.github.com/en/actions/security-guides/using-artifact-attestations-to-establish-provenance-for-builds
+        with:
+          subject-path: |
+            dotload/bin/dotload
+            dotload_*.deb
+            dotload_*.snap
 
-    - name: 🔏 Generate sha256sum for executable
-      run: |
-        executable="dotload/bin/dotload"
-        echo "$(sha256sum $executable | awk '{print $1}') dotload" > $executable.sha256
+      - name: 🔏 Generate sha256sum for executable
+        run: make checksum
 
-    - name: ⬆️ Upload files to release
-      uses: softprops/action-gh-release@v1
-      with:
-        files: |
-          dotload/bin/dotload
-          dotload/bin/dotload.sha256
-          dotload_*.deb
-          dotload_*.snap
-          dotload_*.dsc
-          dotload_*.tar.xz
+      - name: ⬆️ Upload files to release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            dotload/bin/dotload
+            dotload/bin/dotload.sha256
+            dotload_*.deb
+            dotload_*.snap
+            dotload_*.dsc
+            dotload_*.tar.xz
 
-    - name: 🍺 Bump Homebrew formula
-      uses: mislav/bump-homebrew-formula-action@v3
-      with:
-        formula-name: dotload
-        homebrew-tap: okineadev/homebrew-dotload
-        env:
-          COMMITTER_TOKEN: ${{ secrets.COMMITTER_TOKEN }}
+      - name: 🍺 Bump Homebrew formula
+        uses: mislav/bump-homebrew-formula-action@v3
+        with:
+          formula-name: dotload
+          homebrew-tap: okineadev/homebrew-dotload
+          env:
+            COMMITTER_TOKEN: ${{ secrets.COMMITTER_TOKEN }}
 
-    - name: 📦 Upload package to Ubuntu PPA
-      continue-on-error: true
-      run: |
-        echo "::group::Uploading deb-package to Ubuntu PPA"
-        dput ppa:salumin/tools dotload_*_source.changes
-        echo "::endgroup::"
+      - name: 📦 Upload package to Ubuntu PPA
+        continue-on-error: true
+        run: |
+          echo "::group::Uploading deb-package to Ubuntu PPA"
+          dput ppa:salumin/tools dotload_*_source.changes
+          echo "::endgroup::"
 
-    - name: 📦 Upload package to Snap Store
-      continue-on-error: true
-      run: |
-        # Login
-        export SNAPCRAFT_STORE_CREDENTIALS="${{ secrets.SNAPCRAFT_CREDENTIALS }}"
-        echo "::group::Uploading snap-package to Snap Store"
-        snapcraft upload --release=stable dotload_*_all.snap
-        echo "::endgroup::"
+      - name: 📦 Upload package to Snap Store
+        continue-on-error: true
+        run: |
+          # Login
+          export SNAPCRAFT_STORE_CREDENTIALS="${{ secrets.SNAPCRAFT_CREDENTIALS }}"
+          echo "::group::Uploading snap-package to Snap Store"
+          snapcraft upload --release=stable dotload_*_all.snap
+          echo "::endgroup::"
 
-    - name: 🧹 Clean
-      run: |
-        echo "### Done! :rocket:" >> $GITHUB_STEP_SUMMARY
-        echo "::group::Cleaning"
-        make clean
-        echo "::endgroup::"
+      - name: 🧹 Clean
+        run: |
+          echo "### Done! :rocket:" >> $GITHUB_STEP_SUMMARY
+          echo "::group::Cleaning"
+          make clean
+          echo "::endgroup::"
