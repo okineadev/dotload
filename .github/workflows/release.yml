@@ -92,7 +92,7 @@ jobs:
           echo "::endgroup::"
 
       - name: ✅ Attest artifacts
-        uses: actions/attest-build-provenance
+        uses: actions/attest-build-provenance@v1.1.2
         # Read: https://docs.github.com/en/actions/security-guides/using-artifact-attestations-to-establish-provenance-for-builds
         with:
           subject-path: |
