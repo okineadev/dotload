@@ -93,7 +93,7 @@ Możesz zainstalować `dotload` używając następujących menedżerów pakietó
 
   <hr/>
 
-  📥 **Instalowanie**:
+  📥 **Instalacja**:
 
   ```bash
   brew tap okineadev/dotload
@@ -108,7 +108,7 @@ Możesz zainstalować `dotload` używając następujących menedżerów pakietó
 
   Dzięki tej metodzie można zainstalować **dotload** na prawie **każdym systemie**, włączając w to **Termux**
 
-  📥 **Instalować**:
+  📥 **Instalacja**:
 
   ```bash
   curl -sL https://cutt.ly/dotload-install | bash
@@ -154,7 +154,7 @@ Możesz zainstalować `dotload` używając następujących menedżerów pakietó
 
   Istnieje również wsparcie dla [**task**](https://taskfile.dev/).
 
-  📥 **Instalować**:
+  📥 **Instalacja**:
 
   ```bash
   make install
@@ -193,7 +193,7 @@ Możesz zainstalować `dotload` używając następujących menedżerów pakietó
 Można też uruchomić bez instalacji na **każdym** systemie operacyjnym za pomocą tego polecenia:
 
 ```bash
-bash <(curl -sL https://cutt.ly/dotload) @username
+bash <(curl -sL https://cutt.ly/dotload) @nazwa_użytkownika
 ```
 
 ### Tabela zgodności
@@ -205,14 +205,14 @@ bash <(curl -sL https://cutt.ly/dotload) @username
 ## 🚀 Użycie
 
 ```bash
-dotload @username
-dotload @username/repo_name
-dotload https://github.com/username/dotfiles.git
+dotload @nazwa_użytkownika
+dotload @nazwa_użytkownika/nazwa_repo
+dotload https://github.com/nazwa_użytkownika/dotfiles.git
 ```
 
-Gdzie `username` to **nazwa użytkownika GitHub**, którego dotfiles chcesz sklonować.
+Gdzie `nazwa_użytkownika` to **nazwa użytkownika GitHub**, którego dotfiles chcesz sklonować.
 
-`repo_name` - Nazwa repozytorium **dotfiles**, jeśli nie została określona - domyślnie zostanie użyta nazwa `dotfiles`.
+`nazwa_repo` - Nazwa repozytorium **dotfiles**, jeśli nie została określona - domyślnie zostanie użyta nazwa `dotfiles`.
 
 Można również użyć adresów URL repozytoriów takich jak **GitLab**, **Codeberg**, itp.
 
@@ -222,18 +222,18 @@ Można również użyć adresów URL repozytoriów takich jak **GitLab**, **Code
 ### Zaawansowane użycie
 
 ```bash
-dotload @username branch_name
+dotload @nazwa_użytkownika nazwa_gałęzi
 ```
 
 > [!TIP]
 > Można również użyć flag `-b` lub `--branch`:
 
 ```bash
-dotload @<nazwa_użytkownika> [--branch branch_name | -b branch_name]
-dotload <repo_url> [--branch branch_name | -b branch_name]
+dotload @<nazwa_użytkownika> [--branch nazwa_gałęzi | -b nazwa_gałęzi]
+dotload <repo_url> [--branch nazwa_gałęzi | -b nazwa_gałęzi]
 ```
 
-Gdzie `branch_name` to gałąź repozytorium, którą chcemy sklonować. Jeśli nie zostanie podana, używana jest gałąź domyślna. Może to być przydatne w przypadku scenariuszy korzystania z wielu maszyn
+Gdzie `nazwa_gałęzi` to gałąź repozytorium, którą chcemy sklonować. Jeśli nie zostanie podana, używana jest gałąź domyślna. Może to być przydatne w przypadku scenariuszy korzystania z wielu maszyn
 
 ---
 
@@ -252,7 +252,7 @@ man dotload
 
 ### Niestandardowe skrypty instalacyjne
 
-Można również dodać skrypt instalacyjny do repozytorium `dotfiles`, aby w pełni zautomatyzować instalację i uzyskać więcej funkcji
+Można również dodać skrypt instalacyjny do repozytorium `dotfiles`, aby w pełni zautomatyzować instalację i uzyskać więcej funkcji.
 
 Plik instalacyjny może mieć następujące nazwy i lokalizacje:
 
@@ -265,20 +265,20 @@ Plik instalacyjny może mieć następujące nazwy i lokalizacje:
 - _setup_
 - _script/setup_
 
-If none of these files are found, then any files or folders in your selected dotfiles repository starting with `.` are automatically symlinked to the `$HOME` directory.
+Jeśli żaden z tych plików nie zostanie znaleziony, wszystkie pliki lub foldery w wybranym repozytorium dotfiles zaczynające się od `.` są automatycznie symlinkowane do katalogu `$HOME`.
 
 ### Configuration
 
 Można również **określić niestandardowy skrypt instalacyjny**
 lub uczynić go opcjonalnym w pliku `dotload.conf`, w tym celu przeczytaj dokumentację [**dotload.conf**](dotload_conf.md).
 
-## 🛣️ Mapa drogowa
+## 🛣️ Plan rozwoju
 
 - [ ] Dodanie wielojęzycznej obsługi **README.md**
   - [x] 🇺🇦 Ukraiński
   - [x] 🇵🇱 Polski
   - [ ] 🇩🇪 Niemiecki
-- [ ] Napisać instrukcje dla deweloperów (montaż pakietów)
+- [ ] Napisanie instrukcji dla deweloperów (montaż pakietów)
 - [ ] Przepisanie funkcji tworzenia **deb-pakietów** w celu wsparcia różnych wersji [**Ubuntu**](https://ubuntu.com/) - w trakcie 🚧
 - [ ] Dodanie opcji instalacji takich jak **Snap**, **AUR**, **RPM**.
   - [x] **Snap**
@@ -293,7 +293,7 @@ Możesz zacząć rozwijać się na [**GitHub Codespaces**][codespaces-link] od r
 
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/okineadev/dotload?quickstart=1)
 
-To repozytorium zawiera ⚡[**prebuilds**][about-prebuilds], które pozwalają **pominąć** instalację pakietów i narzędzi.
+To repozytorium zawiera ⚡[**wstępnie skompilowane wersje**][about-prebuilds], które pozwalają **pominąć** instalację pakietów i narzędzi.
 
 Lub użyj zwykłej metody na komputerze:
 
@@ -305,7 +305,7 @@ Lub użyj zwykłej metody na komputerze:
 
 Pamiętaj, aby odpowiednio zaktualizować testy.
 
-Prosimy również o zapoznanie się z naszym [**Kodeksem postępowania**](../../CODE_OF_CONDUCT.md) i przestrzeganie go we wszystkich interakcjach z projektem.
+Prosimy również o zapoznanie się z naszym [**Kodeksem Postępowania**](../../CODE_OF_CONDUCT.md) i przestrzeganie go we wszystkich interakcjach z projektem.
 
 ## 📝 Licencja
 
@@ -319,7 +319,7 @@ Zobacz [**LICENSE**](../../LICENSE)
 
 ## ❤️ Wsparcie
 
-Ten projekt jest całkowicie **darmowy** i **open source**.
+Ten projekt jest całkowicie **darmowy** i **otwartoźródłowy**.
 
 Jeśli spodobało Ci się to narzędzie - będę bardzo wdzięczny, jeśli wesprzesz mnie finansowo
 
