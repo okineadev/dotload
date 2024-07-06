@@ -279,11 +279,11 @@ or make it optional in `dotload.conf`, for this read the [**dotload.conf documen
   - [x] 🇵🇱 Polish
   - [ ] 🇩🇪 German
 - [ ] Write instructions for developers (package assembly)
-- [ ] Rewrite the function of creating **deb-packages** to support different versions of [**Ubuntu**](https://ubuntu.com/) - in progress 🚧
-- [ ] Add installation options such as **Snap**, **AUR**, **RPM**
+- [ ] ~Rewrite the function of creating **deb-packages** to support different versions of [**Ubuntu**](https://ubuntu.com/)~ - ❌ Closed
+- [x] Add installation options such as **Snap**, ~**AUR**, **RPM**~
   - [x] **Snap**
-  - [ ] **AUR**
-  - [ ] **RPM**
+  - [ ] ~**AUR**~ - ❌ Closed
+  - [ ] ~**RPM**~ - ❌ Closed
 
 ## 🤝 Contributing
 
