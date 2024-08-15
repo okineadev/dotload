@@ -146,7 +146,7 @@ You can install `dotload` using the following package managers:
 
   3. Install the tools
 
-  If you don't have `make' installed, you need to install it:
+  If you don't have `make` installed, you need to install it:
 
   ```bash
   sudo apt install make
